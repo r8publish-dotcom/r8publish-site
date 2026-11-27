@@ -169,6 +169,13 @@ tr.sum td{border-bottom:none;font-family:var(--display);font-size:20px;padding-t
 <div class="gate" id="gate"><div class="gate-box"><div class="big">18+</div><div class="shop">ร้านอาแปะหน้าปากซอย</div><p style="margin:0">ร้านนี้มีหนังสือสำหรับผู้ที่อายุ 18 ปีขึ้นไป</p><button class="go" id="gate-ok" type="button">อายุ 18 ปีขึ้นไป เข้าร้าน</button></div></div>
 
 <style>.scover{height:auto!important;aspect-ratio:3/4}.scover img{width:100%;height:100%;object-fit:cover;object-position:top}.home{display:inline-block;margin:0 0 10px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px}.home:hover{color:inherit;border-color:currentColor}</style>
+<style>.stack{position:relative;aspect-ratio:3/4;background:#0b0418;overflow:hidden;touch-action:pan-y;user-select:none}
+.stack img{position:absolute;left:5%;top:7%;width:78%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:4px;box-shadow:-4px 4px 14px rgba(0,0,0,.45);transition:transform .35s ease,opacity .35s ease;pointer-events:none}
+.stack .sv{position:absolute;top:50%;transform:translateY(-50%);z-index:50;width:30px;height:30px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff;font-size:18px;line-height:1;cursor:pointer}
+.stack .prev{left:4px}.stack .next{right:4px}
+.stack .dots{position:absolute;bottom:6px;left:0;right:0;display:flex;justify-content:center;gap:5px;z-index:50}
+.stack .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4)}.stack .dots i.on{background:#fff}
+@media (prefers-reduced-motion:reduce){.stack img{transition:none}}</style>
 <div class="wrap">
   <a class="home" href="/">← กลับหน้าแรก</a>
   <div class="shop"><a href="/" style="color:inherit;text-decoration:none">ร้านอาแปะหน้าปากซอย</a> · R8-publish</div>
@@ -322,9 +329,21 @@ const cart={};let code=null;
 const SER=[];{const m={};for(const e of EB){if(!m[e.series]){m[e.series]={n:e.series,t:e.t,ids:[]};SER.push(m[e.series])}m[e.series].ids.push(e.sku)}}
 const volName=(s,id)=>{if(s.ids.length===1)return BY[id].t==="set"?"ทั้งเซ็ต":"1 เล่ม";const m=BY[id].name.match(/เล่ม\s*\d+/);return m?m[0]:BY[id].name};
 function stepper(id){const q=cart[id]||0;return q?`<div class="step"><button type="button" data-d="-1" data-id="${id}" aria-label="เอาออก">−</button><output>${q}</output></div>`:`<button class="add" type="button" data-d="1" data-id="${id}">ใส่ตะกร้า</button>`}
+const COVS={
+  "แด่เจ้าหญิงผู้ร่วงหล่น":["fall1","fall2","fall3","fall4"],
+  "No More Sorrow":["nms1","nms2","nms3","nms4","nms5"],
+  "Hysteria":["hys1","hys2","hys3","hys4"],
+  "เซ็ต Hysteria 1–5":["hys1","hys2","hys3","hys4"],
+  "With 7 Sins":["w7s1","w7s3","w7s4","w7s5","w7s6","w7s7"]
+};
+const TOP={};
+function stack(s){const k=SER.indexOf(s),cv=COVS[s.n],n=cv.length,t=(TOP[k]||0)%n;
+  const imgs=cv.map((c,i)=>{const d=(i-t+n)%n;return `<img src="/preorder/vol/${c}.jpg" alt="ปก ${esc(s.n)} ${i+1}" loading="lazy" style="z-index:${n-d};transform:translate(${Math.min(d,3)*5}%,${Math.min(d,3)*-2}%) scale(${1-Math.min(d,3)*0.06});opacity:${d>3?0:1}">`}).join("");
+  return `<div class="stack" data-k="${k}" role="group" aria-label="ปก ${esc(s.n)} ปัดเพื่อดูเล่มอื่น">${imgs}<button type="button" class="sv prev" data-sv="-1" data-k="${k}" aria-label="ปกก่อนหน้า">‹</button><button type="button" class="sv next" data-sv="1" data-k="${k}" aria-label="ปกถัดไป">›</button><div class="dots">${cv.map((_,i)=>`<i${i===t?' class="on"':""}></i>`).join("")}</div></div>`}
+function flip(k,d){const n=COVS[SER[k].n].length;TOP[k]=((TOP[k]||0)+d+n)%n;const el=document.querySelector(`.stack[data-k="${k}"]`);if(el)el.outerHTML=stack(SER[k])}
 function scard(s){const ps=s.ids.map(id=>BY[id].price),mn=Math.min(...ps),mx=Math.max(...ps),f=BY[s.ids[0]].formats,inc=BY[s.ids[0]].includes;
  return `<div class="scard t-${s.t}${s.ids.some(id=>cart[id])?" in":""}"><div class="band"><span>${TN[s.t]}</span><span>${s.ids.length>1?s.ids.length+" เล่ม":inc?inc.length+" เล่ม":""}</span></div>
- <div class="scover${IMGS[s.n]?"":" noimg"}">${IMGS[s.n]?`<img src="${IMGS[s.n]}" alt="ปก ${esc(s.n)}" loading="lazy">`:`<span>${esc(s.n)}</span>`}</div>
+ ${COVS[s.n]&&COVS[s.n].length>1?stack(s):`<div class="scover${IMGS[s.n]?"":" noimg"}">${IMGS[s.n]?`<img src="${IMGS[s.n]}" alt="ปก ${esc(s.n)}" loading="lazy">`:`<span>${esc(s.n)}</span>`}</div>`}
  <div class="pbody"><div class="name">${esc(s.n)}</div><div class="fmt">${f.map(x=>`<span>${x.toUpperCase()}</span>`).join("")}</div>
  <div class="sub">${mn===mx?`${baht(mn)} บาท${s.ids.length>1?" / เล่ม":""}`:`${baht(mn)}–${baht(mx)} บาท`}</div>
  <div class="vols">${s.ids.map(id=>`<div class="vol"><span>${esc(volName(s,id))}</span>${stepper(id)}</div>`).join("")}</div></div></div>`}
@@ -335,9 +354,13 @@ function render(){const q=document.getElementById("q").value.trim().toLowerCase(
  const owned=new Set(c.lines.filter(l=>l.includes).flatMap(l=>l.includes)),dup=c.lines.filter(l=>owned.has(l.sku));
  document.getElementById("bar-hint").textContent=dup.length?`${dup.map(d=>d.name).join(", ")} อยู่ในเซ็ตแล้ว เอาออกได้นะ`:"E-book ไม่มีค่าส่ง";
  document.getElementById("checkout").disabled=!c.count}
-document.addEventListener("click",e=>{const cp=e.target.closest("[data-copy]");if(cp){const t=cp.dataset.copy;try{navigator.clipboard.writeText(t).then(()=>{cp.textContent="คัดลอกแล้ว";setTimeout(()=>cp.textContent="คัดลอก",1500)},()=>{cp.textContent=t})}catch(_){cp.textContent=t}return}
+document.addEventListener("click",e=>{const sv=e.target.closest("[data-sv]");if(sv){flip(+sv.dataset.k,+sv.dataset.sv);return}const cp=e.target.closest("[data-copy]");if(cp){const t=cp.dataset.copy;try{navigator.clipboard.writeText(t).then(()=>{cp.textContent="คัดลอกแล้ว";setTimeout(()=>cp.textContent="คัดลอก",1500)},()=>{cp.textContent=t})}catch(_){cp.textContent=t}return}
  const b=e.target.closest("[data-d]");if(!b)return;const id=b.dataset.id;if(+b.dataset.d>0)cart[id]=1;else delete cart[id];code=null;render()});
 document.getElementById("q").addEventListener("input",render);
+let sx=null,sk=null;
+document.addEventListener("pointerdown",e=>{const st=e.target.closest(".stack");if(!st||e.target.closest("button"))return;sx=e.clientX;sk=+st.dataset.k});
+document.addEventListener("pointerup",e=>{if(sx==null)return;const dx=e.clientX-sx;if(Math.abs(dx)>30)flip(sk,dx<0?1:-1);sx=null});
+document.addEventListener("pointercancel",()=>{sx=null});
 function newCode(){const A="ABCDEFGHJKMNPQRSTUVWXYZ23456789",d=new Date(),r=crypto.getRandomValues(new Uint8Array(4));return "EB"+String(d.getDate()).padStart(2,"0")+String(d.getMonth()+1).padStart(2,"0")+"-"+[...r].map(x=>A[x%A.length]).join("")}
 
 function openSheet(){const c=calc();if(!c.count)return;code=code||newCode();
