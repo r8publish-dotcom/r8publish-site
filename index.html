@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23f02585%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2216%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3ER8%3C/text%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>ร้านอาแปะหน้าปากซอย</title>
+<meta name="description" content="ร้านอาแปะหน้าปากซอย by R8-publish · มังงะ นิยาย อาร์ตบุ๊ก แสตนดี้ สั่งซื้อและพรีออเดอร์ได้ที่นี่">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+/* Layout: shop front — one "what's open now" sign, then a shelf of doorways (order, check, e-book, standee), booth date, about, contacts. Single dark galaxy look shared with the storefront. */
+:root{
+  --ground:#140726; --card:#22103b; --card2:#2c1650; --line:#3d2560; --ink:#f6effd; --muted:#b9a7d3;
+  --pink:#f02585; --pink-soft:#4b1435; --yellow:#ffd23f; --ok:#4fd39a;
+  --display:"Mitr","IBM Plex Sans Thai",system-ui,sans-serif; --body:"IBM Plex Sans Thai",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  background-image:radial-gradient(1px 1px at 12% 18%,#fff8 50%,transparent 51%),radial-gradient(1.5px 1.5px at 78% 9%,#ffd23faa 50%,transparent 51%),radial-gradient(1px 1px at 55% 32%,#fff6 50%,transparent 51%),radial-gradient(1px 1px at 88% 58%,#fff7 50%,transparent 51%),radial-gradient(1.5px 1.5px at 22% 72%,#f0258599 50%,transparent 51%),radial-gradient(1px 1px at 65% 88%,#fff5 50%,transparent 51%);background-attachment:fixed}
+.wrap{max-width:900px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-size:20px;text-decoration:none;line-height:1.2}
+.brand span{display:block;font-size:12px;color:var(--yellow);letter-spacing:.08em;font-family:var(--body)}
+.topnav{display:flex;gap:6px;flex-wrap:wrap}
+.topnav a{font-size:14px;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--muted)}
+.topnav a:hover{color:var(--ink);border-color:var(--muted)}
+/* open-now sign */
+.sign{margin-top:22px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0;background:var(--card);border:2px solid var(--pink);border-radius:20px;overflow:hidden}
+@media (max-width:680px){.sign{grid-template-columns:1fr}}
+.sign-img{background:#0b0418;display:flex;align-items:center;justify-content:center;min-height:180px}
+.sign-img img{width:100%;height:100%;object-fit:cover;display:block}
+.sign-body{padding:22px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-size:14px;color:var(--ok)}
+.status i{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px #4fd39a33}
+.status.off{color:var(--muted)}.status.off i{background:var(--muted);box-shadow:none}
+.sign h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,4.6vw,36px);line-height:1.2;margin:0;text-wrap:balance}
+.sign h1 em{font-style:normal;color:var(--pink)}
+.sign p{margin:0;color:var(--muted)}
+.btn{display:inline-block;text-align:center;text-decoration:none;font-family:var(--display);font-size:17px;border-radius:14px;padding:13px 22px;background:var(--pink);color:#fff}
+.btn.ghost{background:none;border:1.5px solid var(--line);color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+/* doorways */
+h2{font-family:var(--display);font-weight:500;font-size:21px;margin:36px 0 12px}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.door{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.door:hover{border-color:var(--yellow)}
+.door .k{font-size:12px;letter-spacing:.06em;color:var(--yellow)}
+.door b{font-family:var(--display);font-weight:500;font-size:18px}
+.door span{font-size:14px;color:var(--muted)}
+.door .go{margin-top:auto;font-family:var(--display);font-size:14px;color:var(--pink)}
+.door.soon{opacity:.7;border-style:dashed;cursor:default}
+.door.soon:hover{border-color:var(--line)}
+.door.soon .go{color:var(--muted)}
+.cs{display:inline-block;width:max-content;font-size:11px;font-family:var(--display);letter-spacing:.06em;background:var(--card2);color:var(--yellow);border:1px solid var(--yellow);border-radius:999px;padding:0 8px}
+.links a.soon{border-style:dashed;color:var(--muted);cursor:default}
+/* booth */
+.booth{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.date{font-family:var(--display);text-align:center;background:var(--yellow);color:#1b0b33;border-radius:12px;padding:8px 14px;line-height:1.1;flex:none}
+.date b{display:block;font-size:26px}
+.date small{font-size:13px}
+.booth-t{flex:1;min-width:0}
+.booth-t b{font-family:var(--display);font-weight:500;font-size:18px}
+.booth-t div{color:var(--muted);font-size:14px}
+.about{color:var(--muted);max-width:62ch;margin:0}
+.about b{color:var(--ink);font-weight:500}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{text-decoration:none;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+.links a.todo{border-style:dashed;color:var(--muted)}
+footer{margin-top:40px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="./">ร้านอาแปะหน้าปากซอย<span>R8-PUBLISH · SINCE 2014</span></a>
+    <nav class="topnav" aria-label="เมนู">
+      <a href="check/">เช็กออเดอร์</a>
+      <a href="#ebook">E-book</a>
+      <a href="#event">ออกบูธ</a>
+      <a href="#contact">ติดต่อ</a>
+    </nav>
+  </header>
+
+  <!-- ป้ายหน้าร้าน: เปลี่ยนตาม MODE ด้านล่าง (preorder / regular / closed) -->
+  <section class="sign" id="sign" aria-live="polite">
+    <div class="sign-img"><img id="sign-img" src="preorder/img/set.jpg" alt="ปก Pink Therapy, ม่านที่ไม่เคยเปิด และ Silent Hill F"></div>
+    <div class="sign-body">
+      <div class="status" id="sign-status"><i></i><span>เปิดรับพรีออเดอร์อยู่</span></div>
+      <h1 id="sign-h">พรีออเดอร์ <em>Pink Therapy</em> &amp; ม่านที่ไม่เคยเปิด</h1>
+      <p id="sign-p">Set ของใหม่ 3 เล่ม 800 บาทรวมส่ง หรือเลือกเล่มเดี่ยวก็ได้ ปิดรับ 15 ธ.ค. 2569</p>
+      <div class="row"><a class="btn" id="sign-btn" href="preorder/">สั่งพรีออเดอร์</a><a class="btn ghost" href="check/">เช็กออเดอร์</a></div>
+    </div>
+  </section>
+
+  <h2>สั่งอะไรได้บ้าง</h2>
+  <div class="doors">
+    <a class="door" id="door-order" href="preorder/"><span class="k">หนังสือ · แสตนดี้</span><b id="door-order-t">สั่งพรีออเดอร์รอบนี้</b><span id="door-order-s">มังงะ นิยาย อาร์ตบุ๊ก ใส่ตะกร้า คิดค่าส่งให้เอง</span><span class="go">ไปที่ร้าน →</span></a>
+    <a class="door" id="door-regular" href="shop/"><span class="k">พร้อมส่ง</span><b>สั่งรอบปกติ</b><span>หนังสือทุกเล่มของร้าน สั่งได้ทุกเมื่อ เปิดหลังปิดรอบพรี</span><span class="go">ไปที่ร้าน →</span></a>
+    <a class="door" href="check/"><span class="k">สั่งไปแล้ว</span><b>เช็กออเดอร์</b><span>ใส่เบอร์โทรที่กรอกไว้ ดูรายการและสถานะการโอน</span><span class="go">เช็กเลย →</span></a>
+    <a class="door" id="ebook" href="__EBOOK__" target="_blank" rel="noopener"><span class="k">อ่านในมือถือ</span><b>E-book</b><span>นิยายของร้านในรูปแบบ E-book บน Mebmarket</span><span class="go">ไปที่ Mebmarket →</span></a>
+    <a class="door" href="__STANDEE__" target="_blank" rel="noopener"><span class="k">Butter-T</span><b>สั่งแสตนดี้ Butter-T</b><span>แสตนดี้อะคริลิกลายต่างๆ จากเพจ Butter-T</span><span class="go">ดูแสตนดี้ →</span></a>
+    <a class="door" href="__CATALOG__"><span class="k">ทุกเรื่อง ทุกเล่ม</span><b>หนังสือทั้งหมด</b><span>ปก เรื่องย่อ แนวเรื่อง และนักเขียนของทุกเล่ม</span><span class="go">ดูทั้งหมด →</span></a>
+    <a class="door" href="__SAMPLE__" target="_blank" rel="noopener"><span class="k">ก่อนตัดสินใจ</span><b>ทดลองอ่าน</b><span>ตัวอย่างหนังสือของร้าน อ่านฟรี</span><span class="go">อ่านเลย →</span></a>
+  </div>
+
+  <h2 id="event">เจอกันที่งาน</h2>
+  <div class="booth">
+    <div class="date"><b>5–6</b><small>ธ.ค. 2569</small></div>
+    <div class="booth-t"><b>Comic Avenue 12</b><div>บูธ N33–34 · ร้านอาแปะหน้าปากซอย</div><div>สั่งพรีแล้วมารับที่บูธไม่ได้นะ รอบพรีส่งทางไปรษณีย์หลังปิดรอบ</div></div>
+  </div>
+
+  <h2>ร้านอาแปะคือใคร</h2>
+  <p class="about"><b>ร้านอาแปะหน้าปากซอย</b> เซอร์เคิลทำหนังสือและของสะสมสำหรับผู้ใหญ่ ทำมาตั้งแต่ปี 2014 รวมงานของนักเขียนและนักวาดอย่าง Lilith, Butter-T, Xter และ Nera Studio ทั้งมังงะ ไลท์โนเวล อาร์ตบุ๊ก และแสตนดี้อะคริลิก</p>
+
+  <h2 id="contact">ติดต่อ &amp; ติดตาม</h2>
+  <div class="links">
+    <a href="__FB__" target="_blank" rel="noopener">เพจร้านอาแปะ</a>
+    <a href="__BUTTER__" target="_blank" rel="noopener">เพจ Butter-T</a>
+    <a href="__XTER__" target="_blank" rel="noopener">เพจ Xter</a>
+    <a href="__TIKTOK__" target="_blank" rel="noopener">TikTok</a>
+    <a href="__SAMPLE__" target="_blank" rel="noopener">ทดลองอ่าน</a>
+  </div>
+
+  <footer><span>© R8-publish · 234/14 หมู่ 6 ต.บางเมือง อ.เมือง จ.สมุทรปราการ</span><span>สินค้าบางรายการสำหรับผู้อายุ 18 ปีขึ้นไป</span></footer>
+</div>
+
+<script>
+/* เปลี่ยนโหมดหน้าร้านตรงนี้: "preorder" เปิดพรี, "regular" สั่งรอบปกติ, "closed" ยังไม่เปิดรับ */
+const MODE="preorder";
+const PREORDER_CLOSE=Date.parse("2026-12-16T00:00:00+07:00");
+(function(){
+  let m=MODE; if(m==="preorder"&&Date.now()>=PREORDER_CLOSE)m="closed";
+  const $=id=>document.getElementById(id), st=$("sign-status");
+  if(m==="regular"){
+    st.querySelector("span").textContent="เปิดรับสั่งซื้อรอบปกติ";
+    $("sign-h").innerHTML='สั่งหนังสือ <em>ส่งทันที</em>';
+    $("sign-p").textContent="หนังสือทุกเล่มของร้านพร้อมส่ง สั่งแล้วแพ็กส่งภายในไม่กี่วัน";
+    $("sign-btn").textContent="ไปที่ร้าน"; $("sign-btn").href="shop/";
+    $("door-order").href="shop/"; $("door-order-t").textContent="สั่งรอบปกติ";
+    $("door-regular").hidden=true;
+  } else if(m==="closed"){
+    st.classList.add("off"); st.querySelector("span").textContent="ตอนนี้ยังไม่เปิดรับออเดอร์";
+    $("sign-h").innerHTML='รอบหน้า <em>เร็วๆ นี้</em>';
+    $("sign-p").textContent="ติดตามเพจร้านอาแปะไว้ เปิดรอบใหม่เมื่อไหร่จะประกาศที่นั่นก่อน สั่งไปแล้วเช็กสถานะได้ตามปกติ";
+    $("sign-btn").textContent="ติดตามเพจ"; $("sign-btn").href=document.querySelector('.links a').href;
+    $("door-order").classList.add("soon"); $("door-order-t").textContent="ยังไม่เปิดรับออเดอร์"; $("door-order").removeAttribute("href");
+  }
+  if(m==="preorder")$("door-regular").removeAttribute("href");
+  if(m==="preorder"||m==="closed")$("door-regular").classList.add("soon");
+  /* ลิงก์ที่ยังไม่มี (ขึ้นต้นด้วย __) หรือรอบที่ยังไม่เปิด แสดงเป็น Coming soon */
+  document.querySelectorAll(".door,.links a").forEach(a=>{
+    const href=a.getAttribute("href");
+    if(!href||href.startsWith("__")||a.classList.contains("soon")){
+      a.removeAttribute("href");a.removeAttribute("target");a.classList.add("soon");a.setAttribute("aria-disabled","true");
+      const go=a.querySelector(".go"); if(go)go.innerHTML='<span class="cs">COMING SOON</span>';
+      else if(!a.querySelector(".cs"))a.insertAdjacentHTML("beforeend",' <span class="cs">SOON</span>');
+    }
+  });
+  if(m==="preorder")document.querySelector("#door-regular .go").innerHTML='<span class="cs">เปิดหลังปิดรอบพรี</span>';
+})();
+</script>
+
+</body>
+</html>

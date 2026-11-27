@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23f02585%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2216%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3ER8%3C/text%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>ร้านอาแปะ พรีออเดอร์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+/* Layout: booth-table shelf of title cards on a galaxy ground, cart pinned to the bottom edge; single dark look by design (same family as the order-check page) */
+:root{
+  --ground:#140726; --card:#22103b; --card2:#2c1650; --line:#3d2560; --ink:#f6effd; --muted:#b9a7d3;
+  --pink:#f02585; --pink-soft:#4b1435; --yellow:#ffd23f; --ok:#4fd39a; --ok-soft:#173a2b; --warn:#ffb547; --warn-soft:#3d2c10;
+  --display:"Mitr","IBM Plex Sans Thai",system-ui,sans-serif; --body:"IBM Plex Sans Thai",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  background-image:radial-gradient(1px 1px at 12% 18%,#fff8 50%,transparent 51%),radial-gradient(1.5px 1.5px at 78% 9%,#ffd23faa 50%,transparent 51%),radial-gradient(1px 1px at 55% 32%,#fff6 50%,transparent 51%),radial-gradient(1px 1px at 88% 58%,#fff7 50%,transparent 51%),radial-gradient(1.5px 1.5px at 22% 72%,#f0258599 50%,transparent 51%),radial-gradient(1px 1px at 65% 88%,#fff5 50%,transparent 51%);background-attachment:fixed}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 140px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.test{display:inline-block;font-size:13px;background:var(--warn-soft);color:var(--warn);border-radius:999px;padding:2px 12px;margin-bottom:10px}
+.shop{font-family:var(--display);color:var(--yellow);font-size:14px;letter-spacing:.04em}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,5vw,36px);line-height:1.2;margin:4px 0 6px;text-wrap:balance}
+h1 span{color:var(--pink)}
+.lede{color:var(--muted);margin:0 0 6px;max-width:60ch}
+.rule{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 24px}
+.rule span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rule b{color:var(--ink);font-weight:500}
+h2{font-family:var(--display);font-weight:500;font-size:20px;margin:28px 0 12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h2 small{font-family:var(--body);font-size:13px;color:var(--muted);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.item.in{border-color:var(--pink)}
+.item.feat{background:linear-gradient(160deg,var(--card2),var(--card))}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;border-radius:999px;padding:1px 9px;background:var(--pink-soft);color:#ffb3d4}
+.tag.y{background:#3a3010;color:var(--yellow)}
+.name{font-family:var(--display);font-size:17px;line-height:1.35;overflow-wrap:anywhere}
+.sub{font-size:13px;color:var(--muted)}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto}
+.price{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
+.price small{font-size:13px;color:var(--muted);font-family:var(--body)}
+.step{display:flex;align-items:center;gap:2px;background:var(--ground);border:1px solid var(--line);border-radius:999px}
+.step button{width:36px;height:36px;border:none;background:none;color:var(--ink);font-size:20px;border-radius:999px;cursor:pointer;font-family:var(--display)}
+.step button:hover{background:var(--card2)}
+.step output{min-width:22px;text-align:center;font-variant-numeric:tabular-nums}
+.add{font-family:var(--display);font-size:15px;border:none;border-radius:999px;padding:8px 16px;background:var(--pink);color:#fff;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.search{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.list{display:grid;gap:6px}
+.row{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 8px 8px 14px}
+.row.in{border-color:var(--pink)}
+.row .n{flex:1;min-width:0;overflow-wrap:anywhere}
+.row .p{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px;white-space:nowrap}
+.empty{color:var(--muted);font-size:14px;padding:8px 0}
+/* cart bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:#1b0c31f2;border-top:1px solid var(--line);backdrop-filter:blur(8px);
+  padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar-in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bar-txt{flex:1;min-width:0}
+.bar-total{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
+.bar-hint{font-size:13px;color:var(--muted)}
+.bar-hint.good{color:var(--ok)}
+.go{font-family:var(--display);font-size:16px;border:none;border-radius:12px;padding:12px 20px;background:var(--pink);color:#fff;cursor:pointer}
+.go[disabled]{opacity:.45;cursor:default}
+/* checkout sheet */
+.sheet-bg{position:fixed;inset:0;z-index:10;background:#0009;display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:560px;max-height:92vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:18px 18px 0 0;
+  padding:20px max(18px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))}
+@media (min-width:640px){.sheet-bg{align-items:center}.sheet{border-radius:18px}}
+.sheet h3{font-family:var(--display);font-weight:500;font-size:22px;margin:0 0 4px}
+.code{font-family:var(--display);color:var(--yellow);font-size:15px;letter-spacing:.06em}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-variant-numeric:tabular-nums}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;white-space:nowrap;padding-left:12px}
+tr.sum td{border-bottom:none;font-family:var(--display);font-size:20px;padding-top:10px}
+.steps{display:grid;gap:10px;margin:16px 0;padding:0;list-style:none;counter-reset:s}
+.steps li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.steps li::before{counter-increment:s;content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--pink-soft);color:#ffb3d4;font-family:var(--display);display:grid;place-items:center;font-size:14px}
+.pay{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:10px;background:var(--ground);border:1px solid var(--line);border-radius:12px;padding:12px}
+.qr{background:#fff;border-radius:8px;padding:6px;line-height:0;flex:none}
+.qr svg{width:150px;height:150px;display:block}
+.acct{display:grid;gap:1px;min-width:0}
+.acct .num{font-family:var(--display);font-size:18px;font-variant-numeric:tabular-nums;display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.cp{font:inherit;font-size:12px;border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:1px 10px;cursor:pointer}
+:root{--manga:#ff4fa3;--novel:#3fd0f5;--art:#ffd23f;--goods:#b49bff}
+.t-manga{--tc:var(--manga)}.t-novel{--tc:var(--novel)}.t-art{--tc:var(--art)}.t-goods{--tc:var(--goods)}.t-set{--tc:var(--yellow)}
+.pcard{background:var(--card);border:2px solid var(--tc);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.pcard .foot{flex-wrap:wrap;row-gap:6px}.pcard .price{white-space:nowrap}.add{white-space:nowrap}
+.pcard.in{box-shadow:0 0 0 3px var(--ground),0 0 0 5px var(--ink)}
+.band{background:var(--tc);color:#160828;font-family:var(--display);font-size:13px;padding:3px 12px;display:flex;justify-content:space-between;gap:8px}
+.cover{aspect-ratio:3/4;background:var(--ground);overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.pcard.wide{grid-column:1/-1}
+.pcard.wide .cover{aspect-ratio:auto}
+.pcard.wide .cover img{height:auto;object-fit:contain}
+.pbody{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.credit{font-size:13px;color:var(--muted)}
+.credit b{color:var(--ink);font-weight:500}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px}
+@media (max-width:420px){.pgrid{grid-template-columns:1fr 1fr;gap:10px}.pbody{padding:10px}.name{font-size:15px}.price{font-size:17px}.add{padding:7px 12px;font-size:14px}}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 0}
+.legend span{font-size:13px;display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:14px;border-radius:4px;background:var(--tc);display:inline-block}
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:32px 0 8px}
+@media (max-width:480px){.cta{grid-template-columns:1fr}}
+.cta button{font-family:var(--display);font-size:17px;border-radius:14px;padding:16px;cursor:pointer;border:2px solid var(--pink)}
+.cta .buy{background:var(--pink);color:#fff}
+.cta .more{background:none;color:var(--ink)}
+.tchip{font-size:11px;border-radius:4px;padding:1px 6px;background:var(--tc);color:#160828;font-family:var(--display);flex:none}
+.back{background:none;border:none;color:var(--muted);font:inherit;text-decoration:underline;cursor:pointer;padding:0;margin-bottom:8px}
+.ptags{display:flex;flex-wrap:wrap;gap:4px}
+.ptag{font-size:12px;border:1px solid var(--tc);color:var(--tc);border-radius:999px;padding:0 8px;line-height:1.6}
+.syn summary{cursor:pointer;font-size:13px;color:var(--tc);list-style:none}
+.syn summary::-webkit-details-marker{display:none}
+.syn summary::before{content:"▸ "}.syn[open] summary::before{content:"▾ "}
+.syn p{margin:6px 0 0;font-size:14px;line-height:1.6}
+.rec{position:fixed;left:0;right:0;z-index:6;bottom:calc(76px + env(safe-area-inset-bottom,0px));padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+.rec-in{max-width:560px;margin:0 auto;background:var(--card2);border:2px solid var(--tc);border-radius:14px;padding:10px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px #000a}
+.rec-thumb{width:54px;flex:none;aspect-ratio:3/4;border-radius:6px;overflow:hidden;background:var(--tc);display:grid;place-items:center;color:#160828;font-family:var(--display);font-size:11px;text-align:center}
+.rec-thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
+.rec-txt{flex:1;min-width:0;font-size:13px;line-height:1.45}
+.rec-txt .why{color:var(--yellow);font-family:var(--display);font-size:14px}
+.rec-txt b{font-weight:500}
+.rec-act{display:flex;flex-direction:column;gap:4px;align-items:stretch}
+.rec-x{background:none;border:none;color:var(--muted);font:inherit;font-size:12px;cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.rec-in{animation:pop .2s ease-out}@keyframes pop{from{transform:translateY(12px);opacity:.3}to{transform:none;opacity:1}}}
+.ups{margin:12px 0 4px;background:var(--ground);border:1px dashed var(--yellow);border-radius:12px;padding:10px 12px;font-size:14px;display:grid;gap:8px}
+.ups-h{color:var(--yellow);font-family:var(--display)}
+.ups-row{display:flex;align-items:center;gap:10px}
+.ups-row .n{flex:1;min-width:0}
+.formbtn{display:block;text-align:center;text-decoration:none;font-family:var(--display);font-size:17px;border-radius:12px;padding:13px 18px;background:var(--pink);color:#fff}
+.ghost{display:block;width:100%;margin-top:8px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:12px;padding:10px;font:inherit;cursor:pointer}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+/* age gate */
+.gate{position:fixed;inset:0;z-index:20;background:var(--ground);display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
+.gate-box{max-width:400px;text-align:center;display:grid;gap:14px}
+.gate-box .big{font-family:var(--display);font-size:56px;color:var(--pink);line-height:1}
+@media (prefers-reduced-motion:no-preference){.item,.row{transition:border-color .15s}}
+</style>
+</head>
+<body>
+
+
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="big">18+</div>
+    <div class="shop">ร้านอาแปะหน้าปากซอย</div>
+    <p style="margin:0">ร้านนี้มีหนังสือสำหรับผู้ที่อายุ 18 ปีขึ้นไป</p>
+    <button class="go" id="gate-ok" type="button">อายุ 18 ปีขึ้นไป เข้าร้าน</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="test" id="closed" hidden>ปิดรับพรีรอบนี้แล้ว ขอบคุณทุกคนที่สั่งมานะ</div>
+  <div class="shop">ร้านอาแปะหน้าปากซอย · R8-publish</div>
+  <h1>พรีออเดอร์ <span>Pink Therapy</span> & ม่านที่ไม่เคยเปิด</h1>
+  <p class="lede">เลือกของใส่ตะกร้า ระบบคิดค่าส่งให้เอง แล้วกดไปกรอกฟอร์ม รายการกับยอดเงินจะเติมไว้ให้แล้ว ปิดรับพรี 15 ธ.ค. 2569 · สั่งไปแล้ว <a href="/check/" target="_blank" rel="noopener" style="color:var(--yellow)">เช็กออเดอร์ที่นี่</a></p>
+  <div class="rule" aria-label="ค่าส่ง">
+    <span>1 ชิ้น <b>40</b></span><span>2 ชิ้น <b>60</b></span><span>3 ชิ้น <b>70</b></span><span>4 ชิ้นขึ้นไป <b>80</b></span><span>มี Set ของใหม่ <b>ส่งฟรีทั้งออเดอร์</b></span>
+  </div>
+
+  <div class="legend"><span class="t-manga"><i></i>มังงะ</span><span class="t-novel"><i></i>นิยาย</span><span class="t-art"><i></i>อาร์ตบุ๊ก</span><span class="t-goods"><i></i>แสตนดี้</span></div>
+
+  <section id="v-main">
+    <h2>ของใหม่รอบนี้ <small>พิมพ์ใหม่ ส่งหลังปิดรอบ</small></h2>
+    <div class="pgrid" id="feat"></div>
+    <h2>มังงะเด็ดๆ</h2>
+    <div class="pgrid" id="hl-manga"></div>
+    <h2>นิยาย <small>ไฮไลต์</small></h2>
+    <div class="pgrid" id="hl-novel"></div>
+    <h2>อาร์ตบุ๊ก <small>4 สี 48 หน้า</small></h2>
+    <div class="pgrid" id="hl-art"></div>
+    <h2>แสตนดี้เปลี่ยนชุดได้ด้วยแม่เหล็ก <small>นับค่าส่งเป็น 1 ชิ้น</small></h2>
+    <div class="pgrid" id="hl-goods"></div>
+    <div class="cta">
+      <button type="button" class="buy" id="cta-buy">ซื้อเท่านี้แหละ</button>
+      <button type="button" class="more" id="cta-more">เลือกดูสินค้าอื่นๆ ด้วย</button>
+    </div>
+  </section>
+
+  <section id="v-more" hidden>
+    <button type="button" class="back" id="back">← กลับไปหน้าของใหม่</button>
+    <h2>หนังสือเล่มอื่นของร้าน <small id="bk-count"></small></h2>
+    <label for="q" class="sub" style="display:block;margin-bottom:6px">ค้นชื่อเรื่อง</label>
+    <input id="q" class="search" placeholder="เช่น Song, Hysteria, With 7 Sins" autocomplete="off">
+    <div class="list" id="books"></div>
+    <div class="cta"><button type="button" class="buy" id="cta-buy2">ซื้อเท่านี้แหละ</button><button type="button" class="more" id="back2">กลับไปหน้าของใหม่</button></div>
+  </section>
+</div>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="bar-txt">
+      <div class="bar-total" id="bar-total">ยังไม่มีของในตะกร้า</div>
+      <div class="bar-hint" id="bar-hint">ค่าส่งสูงสุด 80 บาท ไม่ว่าจะกี่ชิ้น</div>
+    </div>
+    <button class="go" id="checkout" type="button" disabled>สรุปออเดอร์</button>
+  </div>
+</div>
+
+<div class="sheet-bg" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t">
+    <h3 id="sh-t">สรุปออเดอร์</h3>
+    <div class="code">รหัสออเดอร์ <span id="sh-code"></span></div>
+    <table id="sh-table"></table>
+    <div class="ups" id="sh-ups" hidden></div>
+    <ol class="steps">
+      <li><div style="flex:1;min-width:0">โอนเงิน <b id="sh-amt"></b> บาท สแกน QR ได้เลย ยอดขึ้นให้เอง
+        <div class="pay">
+          <div class="qr" id="sh-qr" aria-label="QR พร้อมเพย์พร้อมยอดเงิน"></div>
+          <div class="acct">
+            <div class="sub">พร้อมเพย์</div><div class="num">086-678-6170 <button type="button" class="cp" data-copy="0866786170">คัดลอก</button></div>
+            <div class="sub">ธนาคารกสิกรไทย</div><div class="num">075-1-19354-8 <button type="button" class="cp" data-copy="0751193548">คัดลอก</button></div>
+            <div class="sub">ชื่อบัญชี นายไตรเทพ ขวัญเมือง</div>
+          </div>
+        </div></div></li>
+      <li><span>กดปุ่มด้านล่าง ฟอร์มจะเติมรายการ ยอดเงิน และรหัสออเดอร์ไว้ให้แล้ว กรอกชื่อ ที่อยู่ และเวลาที่โอนต่อได้เลย</span></li>
+    </ol>
+    <a class="formbtn" id="sh-form" href="#" target="_blank" rel="noopener">ไปกรอกฟอร์มยืนยันการสั่ง</a>
+    <button class="ghost" id="sh-close" type="button">กลับไปเลือกของต่อ</button>
+    <p class="note">จดรหัสออเดอร์ไว้ได้ เผื่อทักเพจถามสถานะ หลังส่งฟอร์มแล้ว เช็กออเดอร์ด้วยเบอร์โทรได้ที่ <a href="/check/" target="_blank" rel="noopener" style="color:var(--yellow)">หน้าเช็กออเดอร์</a> (อัปเดตทุกเช้า) ถ้ากดปุ่มแล้วฟอร์มไม่เปิด ลองกดค้างแล้วเลือกเปิดในเบราว์เซอร์</p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+const PP="0866786170";
+function crc16(s){let c=0xFFFF;for(const ch of s){c^=ch.charCodeAt(0)<<8;for(let i=0;i<8;i++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
+const tlv=(id,v)=>id+String(v.length).padStart(2,"0")+v;
+function ppPayload(phone,amt){const p="0066"+phone.replace(/\D/g,"").replace(/^0/,"");const s=tlv("00","01")+tlv("01","12")+tlv("29",tlv("00","A000000677010111")+tlv("01",p))+tlv("53","764")+tlv("54",amt.toFixed(2))+tlv("58","TH")+"6304";return s+crc16(s)}
+function drawQR(amt){const el=document.getElementById("sh-qr");try{const q=qrcode(0,"M");q.addData(ppPayload(PP,amt));q.make();el.innerHTML=q.createSvgTag({cellSize:4,margin:2,scalable:true})}catch(e){el.innerHTML="";el.hidden=true}}
+const FORM="https://docs.google.com/forms/d/1CqPc_2CHQOsCy369-_Z16tVoal-_EYsvFFjgPyDhrdA/viewform";
+const E={code:"360839",items:"2048326403",amt:"200477565"};
+const IMG=n=>"img/"+n+".jpg";
+const FEAT=[
+  {id:"SET",n:"Set ของใหม่",sub:"ม่านที่ไม่เคยเปิด + Pink Therapy + Silent Hill F อย่างละเล่ม · ปกติ 870 รวมส่ง",p:800,set:true,t:"set",img:"set",wide:true,tag:"รวมส่งแล้ว"},
+  {id:"BK-PINK",n:"Pink Therapy",sub:"ไม่เกี่ยวกับเกมเพลย์หรอกนะ แต่ว่า...",p:250,t:"manga",img:"pink",cr:[["เรื่อง/ภาพ","Butter-T"]],tag:"ใหม่"},
+  {id:"BK-MAN",n:"ม่านที่ไม่เคยเปิด",p:300,t:"novel",img:"man",cr:[["เรื่อง","Lilith"],["ภาพ","XTER"]],tag:"ใหม่"},
+  {id:"BK-SHF",n:"Silent Hill F",sub:"Fallen Ending",p:250,t:"manga",img:"shf",cr:[["เรื่อง/ภาพ","Nera Studio"]],tag:"ใหม่"}
+];
+const HL={
+  manga:[
+    {id:"BK-SONG3",n:"Song เล่ม 3",p:250,t:"manga",img:"song3",cr:[["โดย","Butter-T"]],tag:"เพิ่งออก"},
+    {id:"BK-BOSS",n:"บอสลิงยอดนักขาย",p:250,t:"manga",img:"boss",cr:[["โดย","Butter-T"]]},
+    {id:"BK-CCL",n:"Cosplay Complex Live",p:250,t:"manga",img:"ccl",cr:[["เรื่อง","Lilith"],["ภาพ","9LiKiN@DyedFlowers, Nera Studio"]]},
+    {id:"BK-GHD",n:"Girl Hunter's Diary",p:300,t:"manga",img:"ghd",cr:[["เรื่อง/ภาพ","Nera Studio"]]}],
+  novel:[
+    {id:"BK-GAL",n:"ผมถูกสาวแกลเห็นตอนแสนหนาว",p:250,t:"novel",img:"gal",cr:[["เรื่อง","Lilith"],["ภาพ","Butter-T"]]},
+    {id:"BK-SHOW",n:"มีแฟนสาวชอบโชว์แบบนี้ตื่นเต้นดีไหมคะ",p:250,t:"novel",img:"show",cr:[["เรื่อง","Lilith"],["ภาพ","Butter-T"]]},
+    {id:"BK-LOLI2",n:"ลุงโลลิ เล่ม 2",p:250,t:"novel",img:"loli2",cr:[["เรื่อง","Lilith"],["ภาพ","RNekon215"]]},
+    {id:"BK-HOME",n:"คืนสู่เหย้าของเหล่าคุณแม่",p:250,t:"novel",img:"home",cr:[["เรื่อง","Lilith"],["ภาพ","XTER"]]},
+    {id:"BK-NTRT",n:"NTR Therapy",p:250,t:"novel",img:"ntr",cr:[["เรื่อง","Lilith"],["ภาพ","9LiKiN@DyedFlowers"]]},
+    {id:"BK-GUIDE",n:"คู่มือแต่งนิยาย",sub:"ต่อให้ไม่ได้อยากเขียนนิยายก็อ่านสนุก",p:250,t:"novel",img:"guide",cr:[["โดย","เพนกวินอ้วนกลม"]]}],
+  art:[
+    {id:"BK-VPB1",n:"V-Playboy เล่ม 1",p:500,t:"art",img:"vpb1",cr:[["ภาพ","Butter-T"]]},
+    {id:"BK-VPB2",n:"V-Playboy เล่ม 2",p:500,t:"art",img:"vpb2",cr:[["ภาพ","Butter-T"]]}],
+  goods:[
+    {id:"SD-GI-KAMA-MIS",n:"KamaiTachi Galaxy Idol",p:900,t:"goods",img:"kama"},
+    {id:"SD-GI-MAMI-MIS",n:"MamiMumei Galaxy Idol",p:900,t:"goods",img:"mami"},
+    {id:"SD-ROV-MIS",n:"Rover",p:700,t:"goods",img:"rover"}]
+};
+const TNAME={manga:"มังงะ",novel:"นิยาย",art:"อาร์ตบุ๊ก",goods:"แสตนดี้",set:"เซ็ตสุดคุ้ม"};
+const MANGA=/^BK-(BOSS|STRAY|BAJANG|CCL|GHD|SONG\d|MB|MGF|SHF|PINK)$/,ART=/^BK-(VPB\d|VF|SKS26)$/;
+const typeOf=id=>MANGA.test(id)?"manga":ART.test(id)?"art":"novel";
+const META={"BK-PINK": {"tags": ["คอสเพลย์", "3P", "ล้อเกม"], "syn": "เพราะเป็นคนเล่นเกมทั้งสองค่าย ผมเลยจ้างสองคอสเพลย์เยอร์สาวมาจัด 3P กันทั้งคืน", "rec": [["BK-CCL", "คุณชอบสาวคอสเพลย์งั้นสินะ งั้นต้องเล่มนี้เลย !!!"]]}, "BK-MAN": {"tags": ["NTR", "ชอบโชว์"], "syn": "คุณแพรวา ภรรยาสาวที่ต้องเก็บความลับเรื่องรสนิยมชอบโชว์ของตัวเองเอาไว้ แต่กลับถูกคนแปลกหน้าที่หวังร้ายจับได้", "rec": [["BK-SHOW", "สาวชอบโชว์เหมือนกัน"]]}, "BK-SHF": {"tags": ["ล้อเกม", "สยองขวัญ"], "syn": "บทสรุปการต่อสู้ของ ฮินาโกะ และ ฮินาโกะ ชิมิสึ ที่จบลงด้วยอารมณ์ที่ไม่มีใครปฏิเสธได้", "rec": [["BK-GHD", "คุณมีอีกผลงานของนักวาดคนนี้แล้วหรือยัง !!!"]]}, "BK-SONG3": {"tags": ["เมด", "ขายตัว"], "syn": "เล่มใหม่ เพิ่งออกต้นปี 69", "rec": [["BK-SONG1", "อ่านตั้งแต่เล่มแรก"]]}, "BK-BOSS": {"tags": ["วีทูปเบอร์", "ขายตัว"], "syn": "เมื่อบอสลิงหาเงินเติมเกม จึงเข้าหาแฟนคลับสุดอันตราย และกลายเป็นการฝึกเด็กดื้อให้กลายเป็นเด็กดี", "rec": []}, "BK-CCL": {"tags": ["คอสเพลย์", "3P"], "syn": "พี่สาวสองคนจับหนุ่มหน้าสวยมาไลฟ์สดแบบคอสเพลย์", "rec": [["BK-CC", "หนังสือฉบับนิยายที่จะให้คุณดำดิ่งลงไปในเนื้อเรื่องสุดสยิว"]]}, "BK-GHD": {"tags": ["ล้อเกม", "แฟนตาซี"], "syn": "", "rec": []}, "BK-GAL": {"tags": ["สาวแกล", "ผิวแทน", "Love-com"], "syn": "สาวแกล! ฟันฉลาม! ผิวแทน! ใส่ชุดว่ายน้ำเอาข้างในแล้วนั่งในห้องเรียน! ไม่มีอะไรลามก แต่....", "rec": [["BK-SHOW", "คุณชอบ Love-com อ่านสบายล่ะก็ อย่าพลาดเรื่องนี้ล่ะ"]]}, "BK-SHOW": {"tags": ["ชอบโชว์", "Love-com"], "syn": "ผมไปสารภาพรักกับดาวคณะแล้วเธอตอบตกลง แต่เธอดันเป็นสาวชอบโชว์ที่หาเรื่องให้ผมตื่นเต้นได้ตลอดเสียนี่", "rec": [["BK-MAN", "สาวชอบโชว์เหมือนกัน"]]}, "BK-LOLI2": {"tags": ["กลายเป็นสาวน้อย"], "syn": "น่าๆ คุณลุงทุกคนนะ อยากกลายเป็นสาวน้อยกันทั้งนั้นแหละ", "rec": [["BK-LOLI1", "อ่านเล่ม 1 ก่อน"]]}, "BK-HOME": {"tags": ["คุณแม่"], "syn": "เมื่อแม่นุชเมากลับบ้านพร้อมกับเพื่อนอีกสองคน เจ้านนท์เลยต้องรับศึกหนักเพียงลำพัง", "rec": [["BK-LL1", "ชอบแนวนี้สินะ ไอ้พวก ย.ม. ลองนิยาย ย.ม. เล่มนี้สิ"]]}, "BK-NTRT": {"tags": ["NTR"], "syn": "เมื่อความรักมันจืดจาง ก็ต้องกระตุ้นด้วยความเจ็บปวดแบบ NTR ให้ทุกอย่างมันซาบซ่าขึ้นอีกครั้ง", "rec": [["BK-MAN", "NTR เหมือนกัน"]]}, "BK-GUIDE": {"tags": ["ฮาวทู", "ไม่ 18+"], "syn": "คู่มือเขียนนิยายที่ต่อให้ไม่ได้อยากเขียนนิยายก็อ่านได้สนุก เน้นแนวคิดว่านิยายเล่มหนึ่งเขียนออกมาได้ยังไง", "rec": []}, "BK-VPB1": {"tags": ["วีทูปเบอร์"], "syn": "อาร์ตบุ๊ก 4 สี 48 หน้า", "rec": [["BK-VPB2", "อาร์ตบุ๊กชุดเดียวกัน"]]}, "BK-VPB2": {"tags": ["วีทูปเบอร์"], "syn": "อาร์ตบุ๊ก 4 สี 48 หน้า", "rec": [["BK-VPB1", "อาร์ตบุ๊กชุดเดียวกัน"]]}, "SD-GI-KAMA-MIS": {"tags": ["วีทูปเบอร์", "เปลี่ยนชุดได้"], "syn": "แสตนดี้เปลี่ยนชุดได้ด้วยแม่เหล็ก", "rec": [["SD-GI-MAMI-MIS", "Galaxy Idol ชุดเดียวกัน"]]}, "SD-GI-MAMI-MIS": {"tags": ["วีทูปเบอร์", "เปลี่ยนชุดได้"], "syn": "แสตนดี้เปลี่ยนชุดได้ด้วยแม่เหล็ก", "rec": [["SD-GI-KAMA-MIS", "Galaxy Idol ชุดเดียวกัน"]]}, "SD-ROV-MIS": {"tags": ["เปลี่ยนชุดได้"], "syn": "แสตนดี้เปลี่ยนชุดได้ด้วยแม่เหล็ก", "rec": []}};
+const HLIDS=new Set([...FEAT,...Object.values(HL).flat()].map(x=>x.id));
+const BOOKS=[["BK-GAL", "ผมถูกสาวแกลเห็นตอนแสนหนาว", 250], ["BK-BOSS", "บอสลิงยอดนักขาย", 250], ["BK-STRAY", "Stray cat (เล่มเดียวจบ)", 250], ["BK-BAJANG", "หมูน้อยขายบ๊ะจ่าง", 250], ["BK-CCL", "Cosplay Complex live", 250], ["BK-GHD", "Girl Hunter's Diary", 300], ["BK-SONG1", "Song เล่ม 1", 250], ["BK-SONG2", "Song เล่ม 2", 250], ["BK-SONG3", "Song เล่ม 3", 250], ["BK-MB", "Mindbreak", 250], ["BK-MGF", "My girl's friend", 250], ["BK-VPB1", "V-Playboy เล่ม 1", 500], ["BK-VPB2", "V-Playboy เล่ม 2", 500], ["BK-VF", "V-Fasion", 400], ["BK-SKS26", "ชิกิชิ 2026", 200], ["BK-LOLI1", "ลุงโลลิ", 250], ["BK-LOLI2", "ลุงโลลิ เล่ม 2", 250], ["BK-HOME", "คืนสู่เหย้าของเหล่าคุณแม่", 250], ["BK-FALL1", "แด่เจ้าหญิงผู้ร่วงหล่น เล่ม 1", 250], ["BK-FALL2", "แด่เจ้าหญิงผู้ร่วงหล่น เล่ม 2", 250], ["BK-FALL3", "แด่เจ้าหญิงผู้ร่วงหล่น เล่ม 3", 250], ["BK-FALL4", "แด่เจ้าหญิงผู้ร่วงหล่น เล่ม 4", 250], ["BK-LL1", "LostLight เล่ม 1", 350], ["BK-LL2", "LostLight เล่ม 2", 350], ["BK-LL3", "LostLight เล่ม 3", 350], ["BK-SHOW", "มีแฟนสาวชอบโชว์แบบนี้ตื่นเต้นดีไหมคะ", 250], ["BK-NTRT", "NTR therapy", 250], ["BK-NMS1", "No More Sorrow เล่ม 1", 300], ["BK-NMS2", "No More Sorrow เล่ม 2", 300], ["BK-NMS3", "No More Sorrow เล่ม 3", 300], ["BK-NMS4", "No More Sorrow เล่ม 4", 300], ["BK-NMS5", "No More Sorrow เล่ม 5", 300], ["BK-CC", "Cosplay Complex", 250], ["BK-HP1", "Honor and Passion เล่ม 1", 250], ["BK-HP2", "Honor and Passion เล่ม 2 (จบ)", 250], ["BK-ELF", "Elsia The Princess Elf", 150], ["BK-HYS1", "Hysteria เล่ม 1", 250], ["BK-HYS2", "Hysteria เล่ม 2", 250], ["BK-HYS3", "Hysteria เล่ม 3", 250], ["BK-HYS4", "Hysteria เล่ม 4", 250], ["BK-HYS5", "Hysteria เล่ม 5 (จบ)", 250], ["BK-W7S1", "With 7 Sin เล่ม 1", 230], ["BK-W7S2", "With 7 Sin เล่ม 2", 230], ["BK-W7S3", "With 7 Sin เล่ม 3", 230], ["BK-W7S4", "With 7 Sin เล่ม 4", 230], ["BK-W7S5", "With 7 Sin เล่ม 5", 230], ["BK-W7S6", "With 7 Sin เล่ม 6", 230], ["BK-W7S7", "With 7 Sin เล่ม 7 (จบ)", 230], ["BK-NSNL1", "No Sex, No Life เล่ม 1", 280], ["BK-NSNL2", "No Sex, No Life เล่ม 2", 280], ["BK-NSNL3", "No Sex, No Life เล่ม 3", 280], ["BK-NSNL4", "No Sex, No Life เล่ม 4", 280], ["BK-NSNL5", "No Sex, No Life เล่ม 5", 280], ["BK-NSNL6", "No Sex, No Life เล่ม 6 (จบ)", 280], ["BK-GUIDE", "คู่มือแต่งนิยาย", 250], ["BK-WISH", "Wish of the Star", 250]].map(([id,n,p])=>({id,n,p}));
+const BOOKS2=BOOKS.filter(b=>!HLIDS.has(b.id)).map(b=>({...b,t:typeOf(b.id)}));
+const ALL=[...BOOKS,...Object.values(HL).flat(),...FEAT], BY=Object.fromEntries(ALL.map(x=>[x.id,x]));
+const cart={};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const baht=n=>n.toLocaleString("th-TH");
+const ship=n=>n<=0?0:n>=4?80:[0,40,60,70][n];
+
+function calc(){
+  const lines=Object.entries(cart).filter(([,q])=>q>0).map(([id,q])=>({...BY[id],q}));
+  const hasSet=lines.some(l=>l.set), n=lines.filter(l=>!l.set).reduce((a,l)=>a+l.q,0);
+  const sub=lines.reduce((a,l)=>a+l.p*l.q,0), sh=hasSet?0:ship(n);
+  return {lines,hasSet,n,sub,sh,total:sub+sh,count:lines.reduce((a,l)=>a+l.q,0)};
+}
+function stepper(id){const q=cart[id]||0;return q?`<div class="step"><button type="button" data-d="-1" data-id="${id}" aria-label="ลด">−</button><output>${q}</output><button type="button" data-d="1" data-id="${id}" aria-label="เพิ่ม">+</button></div>`:`<button class="add" type="button" data-d="1" data-id="${id}">ใส่ตะกร้า</button>`}
+const M=id=>META[id]||{tags:[],syn:"",rec:[]};
+const IMGOF=Object.fromEntries([...FEAT,...Object.values(HL).flat()].filter(x=>x.img).map(x=>[x.id,x.img]));
+const TOF=id=>(BY[id]&&BY[id].t)||typeOf(id);
+function recsFor(id,exclude){
+  const out=[],seen=new Set([id,...exclude]);
+  for(const [rid,why] of M(id).rec){if(BY[rid]&&!seen.has(rid)){out.push({id:rid,why});seen.add(rid)}}
+  if(out.length<1){const my=M(id).tags;let best=null,bs=0;
+    for(const k of Object.keys(META)){if(seen.has(k)||!BY[k])continue;const sh=M(k).tags.filter(t=>my.includes(t)&&t!=="ไม่ 18+");if(sh.length>bs){bs=sh.length;best={id:k,why:`แนว ${sh[0]} เหมือนกัน`}}}
+    if(best)out.push(best)}
+  return out;
+}
+function thumb(id){const im=IMGOF[id];return `<div class="rec-thumb t-${TOF(id)}">${im?`<img src="${IMG(im)}" alt="">`:esc(TNAME[TOF(id)])}</div>`}
+let recEl=null;
+function showRec(id){
+  closeRec();const r=recsFor(id,Object.keys(cart))[0];if(!r)return;const x=BY[r.id];
+  recEl=document.createElement("div");recEl.className="rec";recEl.setAttribute("role","status");
+  recEl.innerHTML=`<div class="rec-in t-${TOF(r.id)}">${thumb(r.id)}<div class="rec-txt"><div class="why">${esc(r.why)}</div>ชอบ <b>${esc(BY[id].n)}</b> ลองดู <b>${esc(x.n)}</b> · ${baht(x.p)} บาท</div><div class="rec-act"><button type="button" class="add" data-d="1" data-id="${r.id}" data-rec="1">ใส่ตะกร้า</button><button type="button" class="rec-x" id="rec-x">ไม่เป็นไร</button></div></div>`;
+  document.body.appendChild(recEl);document.getElementById("rec-x").addEventListener("click",closeRec);
+}
+function closeRec(){if(recEl){recEl.remove();recEl=null}}
+function card(x){return `<div class="pcard t-${x.t}${x.wide?" wide":""}${cart[x.id]?" in":""}"><div class="band"><span>${TNAME[x.t]}</span>${x.tag?`<span>${esc(x.tag)}</span>`:""}</div><div class="cover"><img src="${IMG(x.img)}" alt="ปก ${esc(x.n)}" loading="lazy"></div><div class="pbody"><div class="name">${esc(x.n)}</div>${x.sub?`<div class="sub">${esc(x.sub)}</div>`:""}${M(x.id).tags.length?`<div class="ptags">${M(x.id).tags.map(t=>`<span class="ptag">${esc(t)}</span>`).join("")}</div>`:""}${(x.cr||[]).map(([k,v])=>`<div class="credit">${esc(k)} <b>${esc(v)}</b></div>`).join("")}${M(x.id).syn?`<details class="syn"><summary>อ่านเรื่องย่อ</summary><p>${esc(M(x.id).syn)}</p></details>`:""}<div class="foot"><div class="price">${baht(x.p)} <small>บาท</small></div>${stepper(x.id)}</div></div></div>`}
+function render(){
+  document.getElementById("feat").innerHTML=FEAT.map(card).join("");
+  for(const k of Object.keys(HL))document.getElementById("hl-"+k).innerHTML=HL[k].map(card).join("");
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const bl=BOOKS2.filter(b=>!q||b.n.toLowerCase().includes(q));
+  document.getElementById("bk-count").textContent=`${BOOKS2.length} เล่ม`;
+  document.getElementById("books").innerHTML=bl.length?bl.map(b=>`<div class="row t-${b.t}${cart[b.id]?" in":""}"><span class="tchip">${TNAME[b.t]}</span><span class="n">${esc(b.n)}</span><span class="p">${baht(b.p)} บ.</span>${stepper(b.id)}</div>`).join(""):`<div class="empty">ไม่เจอเรื่องนี้ ลองพิมพ์คำอื่น</div>`;
+  const c=calc(), bt=document.getElementById("bar-total"), bh=document.getElementById("bar-hint");
+  if(!c.count){bt.textContent="ยังไม่มีของในตะกร้า";bh.textContent="ค่าส่งสูงสุด 80 บาท ไม่ว่าจะกี่ชิ้น";bh.className="bar-hint"}
+  else{bt.textContent=`${c.count} ชิ้น · ${baht(c.total)} บาท`;
+    if(c.hasSet){bh.textContent="มี Set ของใหม่ ส่งฟรีทั้งออเดอร์";bh.className="bar-hint good"}
+    else if(c.n>=4){bh.textContent=`รวมค่าส่ง 80 บาท · เพิ่มของได้อีก ค่าส่งไม่เพิ่มแล้ว`;bh.className="bar-hint good"}
+    else{bh.textContent=`รวมค่าส่ง ${c.sh} บาท (${c.n} ชิ้น)`;bh.className="bar-hint"}}
+  document.getElementById("checkout").disabled=!c.count;
+  for(const id of ["cta-buy","cta-buy2"]){const b=document.getElementById(id);b.disabled=!c.count;b.textContent=c.count?`ซื้อเท่านี้แหละ · ${baht(c.total)} บาท`:"ซื้อเท่านี้แหละ"}
+}
+function route(){const more=location.hash==="#more";document.getElementById("v-main").hidden=more;document.getElementById("v-more").hidden=!more;window.scrollTo(0,0)}
+window.addEventListener("hashchange",route);
+document.getElementById("cta-more").addEventListener("click",()=>{location.hash="more"});
+for(const id of ["back","back2"])document.getElementById(id).addEventListener("click",()=>{location.hash="";route()});
+for(const id of ["cta-buy","cta-buy2"])document.getElementById(id).addEventListener("click",()=>openSheet());
+document.addEventListener("click",e=>{const cp=e.target.closest("[data-copy]");if(cp){const t=cp.dataset.copy;const done=()=>{cp.textContent="คัดลอกแล้ว";setTimeout(()=>cp.textContent="คัดลอก",1500)};try{navigator.clipboard.writeText(t).then(done,()=>{cp.textContent=t})}catch(_){cp.textContent=t}return}
+  const b=e.target.closest("[data-d]");if(!b)return;const id=b.dataset.id;const was=cart[id]||0;cart[id]=Math.max(0,was+Number(b.dataset.d));if(!cart[id])delete cart[id];code=null;render();
+  if(b.dataset.ups){openSheet()}else if(b.dataset.rec){closeRec()}else if(!was&&cart[id]&&document.getElementById("sheet").hidden)showRec(id);
+  const again=document.querySelector(`[data-id="${CSS.escape(id)}"][data-d="${b.dataset.d}"]`)||document.querySelector(`[data-id="${CSS.escape(id)}"]`);if(again)again.focus()});
+document.getElementById("q").addEventListener("input",render);
+
+let code=null;
+function newCode(){const A="ABCDEFGHJKMNPQRSTUVWXYZ23456789",d=new Date(),r=crypto.getRandomValues(new Uint8Array(4));return "PT"+String(d.getDate()).padStart(2,"0")+String(d.getMonth()+1).padStart(2,"0")+"-"+[...r].map(x=>A[x%A.length]).join("")}
+function openSheet(){
+  closeRec(); const c=calc(); if(!c.count)return; code=code||newCode();
+  document.getElementById("sh-code").textContent=code;
+  document.getElementById("sh-amt").textContent=baht(c.total); drawQR(c.total);
+  document.getElementById("sh-table").innerHTML=c.lines.map(l=>`<tr><td>${esc(l.n)} × ${l.q}</td><td>${baht(l.p*l.q)}</td></tr>`).join("")+
+    `<tr><td>ค่าส่ง${c.hasSet?" (มี Set ส่งฟรี)":` (${c.n} ชิ้น)`}</td><td>${c.sh?baht(c.sh):"ฟรี"}</td></tr><tr class="sum"><td>ยอดโอน</td><td>${baht(c.total)} บาท</td></tr>`;
+  const ups=document.getElementById("sh-ups"), inCart=Object.keys(cart);
+  const sug=[];for(const id of inCart)for(const r of recsFor(id,[...inCart,...sug.map(s=>s.id)]))if(sug.length<2)sug.push(r);
+  const head=c.hasSet||c.n>=4?"เพิ่มอีกเล่ม ค่าส่งไม่เพิ่มแล้ว":c.n===3?"เพิ่มอีก 1 เล่ม ค่าส่งเพิ่มแค่ 10 บาท":c.n===2?"เพิ่มอีก 1 เล่ม ค่าส่งเพิ่มแค่ 10 บาท":"เพิ่มอีก 1 เล่ม ค่าส่งเพิ่มแค่ 20 บาท";
+  if(sug.length&&head){ups.hidden=false;ups.innerHTML=`<div class="ups-h">${head}</div>`+sug.map(s=>`<div class="ups-row t-${TOF(s.id)}">${thumb(s.id)}<div class="n"><b>${esc(BY[s.id].n)}</b> · ${baht(BY[s.id].p)} บาท<div class="sub">${esc(s.why)}</div></div><button type="button" class="add" data-d="1" data-id="${s.id}" data-rec="1" data-ups="1">ใส่ตะกร้า</button></div>`).join("")}else{ups.hidden=true;ups.innerHTML=""}
+  const itemsTxt=c.lines.map(l=>`${l.n} x${l.q} (${l.p*l.q})`).join(", ")+` | ค่าส่ง ${c.sh}`;
+  const u=new URLSearchParams({usp:"pp_url"}); u.set("entry."+E.code,code); u.set("entry."+E.items,itemsTxt); u.set("entry."+E.amt,String(c.total));
+  document.getElementById("sh-form").href=FORM+"?"+u.toString();
+  document.getElementById("sheet").hidden=false; document.getElementById("sh-close").focus();
+}
+document.getElementById("checkout").addEventListener("click",openSheet);
+document.getElementById("sh-close").addEventListener("click",()=>{document.getElementById("sheet").hidden=true;document.getElementById("checkout").focus()});
+document.getElementById("sheet").addEventListener("click",e=>{if(e.target.id==="sheet")e.target.hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("sheet").hidden=true});
+
+let ok=false;try{ok=localStorage.getItem("r8-age")==="1"}catch(e){}
+if(ok)document.getElementById("gate").hidden=true;
+document.getElementById("gate-ok").addEventListener("click",()=>{document.getElementById("gate").hidden=true;try{localStorage.setItem("r8-age","1")}catch(e){}});
+route();render();
+if(Date.now()>=Date.parse("2026-12-16T00:00:00+07:00")){document.getElementById("closed").hidden=false;document.querySelectorAll(".bar,.cta").forEach(e=>e.hidden=true);const st=document.createElement("style");st.textContent=".step,.add{display:none!important}";document.head.appendChild(st)}
+</script>
+
+</body>
+</html>
