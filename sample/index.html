@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23f02585%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2216%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3ER8%3C/text%3E%3C/svg%3E">
+<title>ทดลองอ่าน ร้านอาแปะ</title>
+<meta name="description" content="ทดลองอ่านหนังสือของร้านอาแปะหน้าปากซอย">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600&family=Sarabun:wght@400;600&display=swap">
+<style>
+:root{--ground:#140726;--card:#22103b;--line:#3d2560;--ink:#f6effd;--muted:#b9a7d3;--pink:#f02585;--yellow:#ffd23f;
+--display:"Mitr",system-ui,sans-serif;--read:"Sarabun","IBM Plex Sans Thai",system-ui,sans-serif;color-scheme:dark;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--read)}
+.wrap{max-width:680px;margin:0 auto;padding-block:20px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.home{display:inline-block;margin:0 0 14px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px;font-family:var(--display)}
+.head{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:end;margin-bottom:28px}
+.head img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:6px;box-shadow:0 6px 24px #0008}
+.shop{font-family:var(--display);color:var(--yellow);font-size:13px;letter-spacing:.04em}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,5vw,32px);line-height:1.25;margin:4px 0 6px;text-wrap:balance}
+.cr{color:var(--muted);font-size:14px;font-family:var(--display);font-weight:400}
+.ep{font-family:var(--display);color:var(--pink);font-size:15px;margin:0 0 4px}
+h2{font-family:var(--display);font-weight:500;font-size:22px;margin:0 0 24px}
+.txt p{font-size:19px;line-height:1.95;margin:0 0 1em;text-indent:2em;overflow-wrap:anywhere}
+.pic{margin:1.6em 0;text-align:center}.pic img{width:100%;height:auto;border-radius:6px;display:block}
+.brk{border:0;text-align:center;margin:2em 0}.brk::after{content:"◆  ◆  ◆";color:var(--muted);font-size:12px;letter-spacing:.3em}
+.end{margin-top:40px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center}
+.end p{margin:0 0 12px;color:var(--muted)}.end b{color:var(--ink);font-family:var(--display);font-size:20px;font-weight:500}
+.btn{display:inline-block;background:var(--pink);color:#fff;text-decoration:none;font-family:var(--display);border-radius:999px;padding:11px 24px;font-size:17px}
+.gate{position:fixed;inset:0;z-index:20;background:var(--ground);display:grid;place-items:center;padding:24px 16px}
+.gate-box{max-width:400px;text-align:center;display:grid;gap:14px;font-family:var(--display)}
+.gate-box .big{font-size:56px;color:var(--pink);line-height:1}
+.gate-box button{background:var(--pink);color:#fff;border:0;border-radius:999px;padding:11px 24px;font:inherit;font-size:17px;cursor:pointer}
+@media (max-width:480px){.head{grid-template-columns:96px minmax(0,1fr)}.txt p{font-size:18px}}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:20px}
+.it{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;color:var(--ink);text-decoration:none}
+.it img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block}
+.it div{padding:10px 12px;font-family:var(--display)}.it small{display:block;color:var(--muted);font-size:13px;font-weight:400}
+.lede{color:var(--muted);margin:0;font-family:var(--display);font-weight:400}
+</style>
+</head>
+<body>
+<div class="gate" id="gate"><div class="gate-box"><div class="big">18+</div><div class="shop">ร้านอาแปะหน้าปากซอย</div><p style="margin:0">หนังสือของร้านสำหรับผู้ที่อายุ 18 ปีขึ้นไป</p><button id="gate-ok" type="button">อายุ 18 ปีขึ้นไป เข้าอ่าน</button></div></div>
+<div class="wrap">
+<a class="home" href="/">← กลับหน้าแรก</a>
+<div class="shop">ร้านอาแปะหน้าปากซอย</div>
+<h1>ทดลองอ่าน</h1>
+<p class="lede">อ่านตอนแรกฟรีก่อนตัดสินใจซื้อ</p>
+<div class="list">
+<!-- เพิ่มเรื่องใหม่: ก๊อปบล็อก <a class="it"> ด้านล่างไปวางต่อ แล้วแก้ลิงก์ รูป และชื่อ -->
+<a class="it" href="man/"><img src="/preorder/img/man.jpg" alt="ปก ม่านที่ไม่เคยเปิด" loading="lazy"><div>ม่านที่ไม่เคยเปิด<small>นิยาย · ตอนที่ 1</small></div></a>
+</div>
+</div>
+<script>
+let ok=false;try{ok=localStorage.getItem("r8-age")==="1"}catch(e){}
+if(ok)document.getElementById("gate").hidden=true;
+document.getElementById("gate-ok").addEventListener("click",()=>{document.getElementById("gate").hidden=true;try{localStorage.setItem("r8-age","1")}catch(e){}});
+</script>
+</body>
+</html>

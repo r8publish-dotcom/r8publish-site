@@ -168,7 +168,8 @@ tr.sum td{border-bottom:none;font-family:var(--display);font-size:20px;padding-t
   </div>
 </div>
 
-<style>.scover{height:auto!important;aspect-ratio:3/4}.scover img{width:100%;height:100%;object-fit:cover;object-position:top}.home{display:inline-block;margin:0 0 10px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px}.home:hover{color:inherit;border-color:currentColor}</style>
+<style>.scover{height:auto!important;aspect-ratio:3/4}.scover img{width:100%;height:100%;object-fit:cover;object-position:top}.home{display:inline-block;margin:0 0 10px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px}.home:hover{color:inherit;border-color:currentColor}.sample{display:inline-block;margin-top:6px;font-size:13px;color:var(--yellow);text-decoration:none;border-bottom:1px dashed currentColor}
+</style>
 <div class="wrap">
   <div class="test" id="closed" hidden>ปิดรับพรีรอบนี้แล้ว ขอบคุณทุกคนที่สั่งมานะ</div>
   <a class="home" href="/">← กลับหน้าแรก</a>
@@ -277,7 +278,7 @@ const IMG=n=>"img/"+n+".jpg";
 const FEAT=[
   {id:"SET",n:"Set ของใหม่",sub:"ม่านที่ไม่เคยเปิด + Pink Therapy + Silent Hill F อย่างละเล่ม · ปกติ 870 รวมส่ง",p:800,set:true,t:"set",img:"set",tag:"รวมส่งแล้ว"},
   {id:"BK-PINK",n:"Pink Therapy",sub:"ไม่เกี่ยวกับเกมเพลย์หรอกนะ แต่ว่า...",p:250,t:"manga",img:"pink",cr:[["เรื่อง/ภาพ","Butter-T"]],tag:"ใหม่"},
-  {id:"BK-MAN",n:"ม่านที่ไม่เคยเปิด",p:300,t:"novel",img:"man",cr:[["เรื่อง","Lilith"],["ภาพ","XTER"]],tag:"ใหม่"},
+  {id:"BK-MAN",n:"ม่านที่ไม่เคยเปิด",p:300,t:"novel",img:"man",cr:[["เรื่อง","Lilith"],["ภาพ","XTER"]],tag:"ใหม่",sample:"/sample/man/"},
   {id:"BK-SHF",n:"Silent Hill F",sub:"Fallen Ending",p:250,t:"manga",img:"shf",cr:[["เรื่อง/ภาพ","Nera Studio"]],tag:"ใหม่"}
 ];
 const HL={
@@ -369,7 +370,7 @@ function showRec(id){
   document.body.appendChild(recEl);document.getElementById("rec-x").addEventListener("click",closeRec);
 }
 function closeRec(){if(recEl){recEl.remove();recEl=null}}
-function card(x){return `<div class="pcard t-${x.t}${x.wide?" wide":""}${cart[x.id]?" in":""}"><div class="band"><span>${TNAME[x.t]}</span>${x.tag?`<span>${esc(x.tag)}</span>`:""}</div><div class="cover"><img src="${IMG(x.img)}" alt="ปก ${esc(x.n)}" loading="lazy"></div><div class="pbody"><div class="name">${esc(x.n)}</div>${x.sub?`<div class="sub">${esc(x.sub)}</div>`:""}${M(x.id).tags.length?`<div class="ptags">${M(x.id).tags.map(t=>`<span class="ptag">${esc(t)}</span>`).join("")}</div>`:""}${(x.cr||[]).map(([k,v])=>`<div class="credit">${esc(k)} <b>${esc(v)}</b></div>`).join("")}${M(x.id).syn?`<details class="syn"><summary>อ่านเรื่องย่อ</summary><p>${esc(M(x.id).syn)}</p></details>`:""}<div class="foot"><div class="price">${baht(x.p)} <small>บาท</small></div>${stepper(x.id)}</div></div></div>`}
+function card(x){return `<div class="pcard t-${x.t}${x.wide?" wide":""}${cart[x.id]?" in":""}"><div class="band"><span>${TNAME[x.t]}</span>${x.tag?`<span>${esc(x.tag)}</span>`:""}</div><div class="cover"><img src="${IMG(x.img)}" alt="ปก ${esc(x.n)}" loading="lazy"></div><div class="pbody"><div class="name">${esc(x.n)}</div>${x.sub?`<div class="sub">${esc(x.sub)}</div>`:""}${M(x.id).tags.length?`<div class="ptags">${M(x.id).tags.map(t=>`<span class="ptag">${esc(t)}</span>`).join("")}</div>`:""}${(x.cr||[]).map(([k,v])=>`<div class="credit">${esc(k)} <b>${esc(v)}</b></div>`).join("")}${x.sample?`<a class="sample" href="${x.sample}">ทดลองอ่านตอนแรก →</a>`:""}${M(x.id).syn?`<details class="syn"><summary>อ่านเรื่องย่อ</summary><p>${esc(M(x.id).syn)}</p></details>`:""}<div class="foot"><div class="price">${baht(x.p)} <small>บาท</small></div>${stepper(x.id)}</div></div></div>`}
 function render(){
   document.getElementById("feat").innerHTML=FEAT.map(card).join("");
   for(const k of Object.keys(HL))document.getElementById("hl-"+k).innerHTML=HL[k].map(card).join("");
