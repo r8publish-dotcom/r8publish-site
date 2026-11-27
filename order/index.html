@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23f02585%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2216%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22%3ER8%3C/text%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>ร้านอาแปะ สั่งซื้อ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+/* Layout: booth-table shelf of title cards on a galaxy ground, cart pinned to the bottom edge; single dark look by design (same family as the order-check page) */
+:root{
+  --ground:#140726; --card:#22103b; --card2:#2c1650; --line:#3d2560; --ink:#f6effd; --muted:#b9a7d3;
+  --pink:#f02585; --pink-soft:#4b1435; --yellow:#ffd23f; --ok:#4fd39a; --ok-soft:#173a2b; --warn:#ffb547; --warn-soft:#3d2c10;
+  --display:"Mitr","IBM Plex Sans Thai",system-ui,sans-serif; --body:"IBM Plex Sans Thai",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  background-image:radial-gradient(1px 1px at 12% 18%,#fff8 50%,transparent 51%),radial-gradient(1.5px 1.5px at 78% 9%,#ffd23faa 50%,transparent 51%),radial-gradient(1px 1px at 55% 32%,#fff6 50%,transparent 51%),radial-gradient(1px 1px at 88% 58%,#fff7 50%,transparent 51%),radial-gradient(1.5px 1.5px at 22% 72%,#f0258599 50%,transparent 51%),radial-gradient(1px 1px at 65% 88%,#fff5 50%,transparent 51%);background-attachment:fixed}
+.wrap{max-width:860px;margin:0 auto;padding-block:20px 140px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.test{display:inline-block;font-size:13px;background:var(--warn-soft);color:var(--warn);border-radius:999px;padding:2px 12px;margin-bottom:10px}
+.shop{font-family:var(--display);color:var(--yellow);font-size:14px;letter-spacing:.04em}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,5vw,36px);line-height:1.2;margin:4px 0 6px;text-wrap:balance}
+h1 span{color:var(--pink)}
+.lede{color:var(--muted);margin:0 0 6px;max-width:60ch}
+.rule{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 24px}
+.rule span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rule b{color:var(--ink);font-weight:500}
+h2{font-family:var(--display);font-weight:500;font-size:20px;margin:28px 0 12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h2 small{font-family:var(--body);font-size:13px;color:var(--muted);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.item.in{border-color:var(--pink)}
+.item.feat{background:linear-gradient(160deg,var(--card2),var(--card))}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;border-radius:999px;padding:1px 9px;background:var(--pink-soft);color:#ffb3d4}
+.tag.y{background:#3a3010;color:var(--yellow)}
+.name{font-family:var(--display);font-size:17px;line-height:1.35;overflow-wrap:anywhere}
+.sub{font-size:13px;color:var(--muted)}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto}
+.price{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
+.price small{font-size:13px;color:var(--muted);font-family:var(--body)}
+.step{display:flex;align-items:center;gap:2px;background:var(--ground);border:1px solid var(--line);border-radius:999px}
+.step button{width:36px;height:36px;border:none;background:none;color:var(--ink);font-size:20px;border-radius:999px;cursor:pointer;font-family:var(--display)}
+.step button:hover{background:var(--card2)}
+.step output{min-width:22px;text-align:center;font-variant-numeric:tabular-nums}
+.add{font-family:var(--display);font-size:15px;border:none;border-radius:999px;padding:8px 16px;background:var(--pink);color:#fff;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.search{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.list{display:grid;gap:6px}
+.row{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 8px 8px 14px}
+.row.in{border-color:var(--pink)}
+.row .n{flex:1;min-width:0;overflow-wrap:anywhere}
+.row .p{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px;white-space:nowrap}
+.empty{color:var(--muted);font-size:14px;padding:8px 0}
+/* cart bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:#1b0c31f2;border-top:1px solid var(--line);backdrop-filter:blur(8px);
+  padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar-in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bar-txt{flex:1;min-width:0}
+.bar-total{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
+.bar-hint{font-size:13px;color:var(--muted)}
+.bar-hint.good{color:var(--ok)}
+.go{font-family:var(--display);font-size:16px;border:none;border-radius:12px;padding:12px 20px;background:var(--pink);color:#fff;cursor:pointer}
+.go[disabled]{opacity:.45;cursor:default}
+/* checkout sheet */
+.sheet-bg{position:fixed;inset:0;z-index:10;background:#0009;display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:560px;max-height:92vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:18px 18px 0 0;
+  padding:20px max(18px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))}
+@media (min-width:640px){.sheet-bg{align-items:center}.sheet{border-radius:18px}}
+.sheet h3{font-family:var(--display);font-weight:500;font-size:22px;margin:0 0 4px}
+.code{font-family:var(--display);color:var(--yellow);font-size:15px;letter-spacing:.06em}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-variant-numeric:tabular-nums}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;white-space:nowrap;padding-left:12px}
+tr.sum td{border-bottom:none;font-family:var(--display);font-size:20px;padding-top:10px}
+.steps{display:grid;gap:10px;margin:16px 0;padding:0;list-style:none;counter-reset:s}
+.steps li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.steps li::before{counter-increment:s;content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--pink-soft);color:#ffb3d4;font-family:var(--display);display:grid;place-items:center;font-size:14px}
+.pay{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:10px;background:var(--ground);border:1px solid var(--line);border-radius:12px;padding:12px}
+.qr{background:#fff;border-radius:8px;padding:6px;line-height:0;flex:none}
+.qr img{width:150px;height:150px;display:block;image-rendering:pixelated}
+.qrwrap{display:flex;flex-direction:column;gap:6px;align-items:center;flex:none}
+.savebtn{font-family:var(--display);font-size:13px;border:1px solid var(--yellow);background:none;color:var(--yellow);border-radius:999px;padding:4px 12px;cursor:pointer}
+.qrhint{font-size:11px;color:var(--muted);max-width:160px;text-align:center;line-height:1.3}
+.acct{display:grid;gap:1px;min-width:0}
+.acct .num{font-family:var(--display);font-size:18px;font-variant-numeric:tabular-nums;display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.cp{font:inherit;font-size:12px;border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:1px 10px;cursor:pointer}
+:root{--manga:#ff4fa3;--novel:#3fd0f5;--art:#ffd23f;--goods:#b49bff}
+.t-manga{--tc:var(--manga)}.t-novel{--tc:var(--novel)}.t-art{--tc:var(--art)}.t-goods{--tc:var(--goods)}.t-set{--tc:var(--yellow)}
+.pcard{background:var(--card);border:2px solid var(--tc);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.pcard .foot{flex-wrap:wrap;row-gap:6px}.pcard .price{white-space:nowrap}.add{white-space:nowrap}
+.pcard.in{box-shadow:0 0 0 3px var(--ground),0 0 0 5px var(--ink)}
+.band{background:var(--tc);color:#160828;font-family:var(--display);font-size:13px;padding:3px 12px;display:flex;justify-content:space-between;gap:8px}
+.cover{aspect-ratio:3/4;background:var(--ground);overflow:hidden}
+.cover img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.pcard.wide{grid-column:1/-1}
+.pcard.wide .cover{aspect-ratio:auto}
+.pcard.wide .cover img{height:auto;object-fit:contain}
+.pbody{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.credit{font-size:13px;color:var(--muted)}
+.credit b{color:var(--ink);font-weight:500}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px}
+@media (max-width:420px){.pgrid{grid-template-columns:1fr 1fr;gap:10px}.pbody{padding:10px}.name{font-size:15px}.price{font-size:17px}.add{padding:7px 12px;font-size:14px}}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 0}
+.legend span{font-size:13px;display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:14px;border-radius:4px;background:var(--tc);display:inline-block}
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:32px 0 8px}
+@media (max-width:480px){.cta{grid-template-columns:1fr}}
+.cta button{font-family:var(--display);font-size:17px;border-radius:14px;padding:16px;cursor:pointer;border:2px solid var(--pink)}
+.cta .buy{background:var(--pink);color:#fff}
+.cta .more{background:none;color:var(--ink)}
+.tchip{font-size:11px;border-radius:4px;padding:1px 6px;background:var(--tc);color:#160828;font-family:var(--display);flex:none}
+.back{background:none;border:none;color:var(--muted);font:inherit;text-decoration:underline;cursor:pointer;padding:0;margin-bottom:8px}
+.ptags{display:flex;flex-wrap:wrap;gap:4px}
+.ptag{font-size:12px;border:1px solid var(--tc);color:var(--tc);border-radius:999px;padding:0 8px;line-height:1.6}
+.syn summary{cursor:pointer;font-size:13px;color:var(--tc);list-style:none}
+.syn summary::-webkit-details-marker{display:none}
+.syn summary::before{content:"▸ "}.syn[open] summary::before{content:"▾ "}
+.syn p{margin:6px 0 0;font-size:14px;line-height:1.6}
+.rec{position:fixed;left:0;right:0;z-index:6;bottom:calc(76px + env(safe-area-inset-bottom,0px));padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+.rec-in{max-width:560px;margin:0 auto;background:var(--card2);border:2px solid var(--tc);border-radius:14px;padding:10px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px #000a}
+.rec-thumb{width:54px;flex:none;aspect-ratio:3/4;border-radius:6px;overflow:hidden;background:var(--tc);display:grid;place-items:center;color:#160828;font-family:var(--display);font-size:11px;text-align:center}
+.rec-thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
+.rec-txt{flex:1;min-width:0;font-size:13px;line-height:1.45}
+.rec-txt .why{color:var(--yellow);font-family:var(--display);font-size:14px}
+.rec-txt b{font-weight:500}
+.rec-act{display:flex;flex-direction:column;gap:4px;align-items:stretch}
+.rec-x{background:none;border:none;color:var(--muted);font:inherit;font-size:12px;cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.rec-in{animation:pop .2s ease-out}@keyframes pop{from{transform:translateY(12px);opacity:.3}to{transform:none;opacity:1}}}
+.ups{margin:12px 0 4px;background:var(--ground);border:1px dashed var(--yellow);border-radius:12px;padding:10px 12px;font-size:14px;display:grid;gap:8px}
+.ups-h{color:var(--yellow);font-family:var(--display)}
+.ups-row{display:flex;align-items:center;gap:10px}
+.ups-row .n{flex:1;min-width:0}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+@media (max-width:520px){.sgrid{grid-template-columns:1fr 1fr;gap:10px}.scover{height:130px}.vol{font-size:13px}.vol .add{padding:5px 9px;font-size:12px}.vol .step button{width:28px;height:28px}}
+.scard{background:var(--card);border:2px solid var(--tc);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.scard.in{box-shadow:0 0 0 3px var(--ground),0 0 0 5px var(--ink)}
+.scover{background:#0b0418;height:170px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.scover img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.scover.noimg{background:linear-gradient(135deg,var(--card2),var(--ground));font-family:var(--display);color:var(--tc);font-size:20px;padding:12px;text-align:center}
+.vols{display:grid;gap:6px;margin-top:4px}
+.vol{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px dashed var(--line);padding-top:6px;font-size:14px}
+.vol .add{padding:6px 12px;font-size:13px}
+.vol .step button{width:32px;height:32px}
+.formbtn{display:block;text-align:center;text-decoration:none;font-family:var(--display);font-size:17px;border-radius:12px;padding:13px 18px;background:var(--pink);color:#fff}
+.ghost{display:block;width:100%;margin-top:8px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:12px;padding:10px;font:inherit;cursor:pointer}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+/* age gate */
+.gate{position:fixed;inset:0;z-index:20;background:var(--ground);display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
+.gate-box{max-width:400px;text-align:center;display:grid;gap:14px}
+.gate-box .big{font-family:var(--display);font-size:56px;color:var(--pink);line-height:1}
+@media (prefers-reduced-motion:no-preference){.item,.row{transition:border-color .15s}}
+</style>
+</head>
+<body>
+
+
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="big">18+</div>
+    <div class="shop">ร้านอาแปะหน้าปากซอย</div>
+    <p style="margin:0">ร้านนี้มีหนังสือสำหรับผู้ที่อายุ 18 ปีขึ้นไป</p>
+    <button class="go" id="gate-ok" type="button">อายุ 18 ปีขึ้นไป เข้าร้าน</button>
+  </div>
+</div>
+
+<style>.scover{height:auto!important;aspect-ratio:3/4}.scover img{width:100%;height:100%;object-fit:cover;object-position:top}.home{display:inline-block;margin:0 0 10px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px}.home:hover{color:inherit;border-color:currentColor}.stack{position:relative;aspect-ratio:3/4;background:#0b0418;overflow:hidden;touch-action:pan-y;user-select:none}
+.stack img{position:absolute;left:5%;top:7%;width:78%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:4px;box-shadow:-4px 4px 14px rgba(0,0,0,.45);transition:transform .35s ease,opacity .35s ease;pointer-events:none}
+.stack .sv{position:absolute;top:50%;transform:translateY(-50%);z-index:50;width:30px;height:30px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff;font-size:18px;line-height:1;cursor:pointer}
+.stack .prev{left:4px}.stack .next{right:4px}
+.stack .dots{position:absolute;bottom:6px;left:0;right:0;display:flex;justify-content:center;gap:5px;z-index:50}
+.stack .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4)}.stack .dots i.on{background:#fff}
+@media (prefers-reduced-motion:reduce){.stack img{transition:none}}
+</style>
+<div class="wrap">
+  <div class="test" id="testbar">หน้าทดลอง ยังไม่เปิดให้ลูกค้าใช้ ปุ่มฟอร์มยังเป็นฟอร์มทดสอบ</div>
+  <a class="home" href="/">← กลับหน้าแรก</a>
+  <div class="shop">ร้านอาแปะหน้าปากซอย · R8-publish</div>
+  <h1>สั่งซื้อ <span>หนังสือ</span> & Goods</h1>
+  <p class="lede">เลือกของใส่ตะกร้า ระบบคิดค่าส่งให้เอง แล้วกดไปกรอกฟอร์ม รายการกับยอดเงินจะเติมไว้ให้แล้ว ของพร้อมส่ง ส่งภายในไม่กี่วันหลังได้รับยอดโอน</p>
+  <div class="rule" aria-label="ค่าส่ง">
+    <span>1 ชิ้น <b>50</b></span><span>2 ชิ้น <b>70</b></span><span>3 ชิ้น <b>80</b></span><span>4 ชิ้นขึ้นไป <b>90</b></span>
+  </div>
+
+  <div class="legend"><span class="t-manga"><i></i>มังงะ</span><span class="t-novel"><i></i>นิยาย</span><span class="t-art"><i></i>อาร์ตบุ๊ก</span><span class="t-goods"><i></i>Goods</span></div>
+
+  
+    <section id="v-all">
+    <label for="q" class="sub" style="display:block;margin:6px 0">ค้นชื่อเรื่อง</label>
+    <input id="q" class="search" placeholder="เช่น Song, Hysteria, With 7 Sins" autocomplete="off">
+    <div id="secs"></div>
+    <div class="cta"><button type="button" class="buy" id="cta-buy">ซื้อเท่านี้แหละ</button></div>
+  </section>
+</div>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="bar-txt">
+      <div class="bar-total" id="bar-total">ยังไม่มีของในตะกร้า</div>
+      <div class="bar-hint" id="bar-hint">ค่าส่งสูงสุด 90 บาท ไม่ว่าจะกี่ชิ้น</div>
+    </div>
+    <button class="go" id="checkout" type="button" disabled>สรุปออเดอร์</button>
+  </div>
+</div>
+
+<div class="sheet-bg" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t">
+    <h3 id="sh-t">สรุปออเดอร์</h3>
+    <div class="code">รหัสออเดอร์ <span id="sh-code"></span></div>
+    <table id="sh-table"></table>
+    
+    <ol class="steps">
+      <li><div style="flex:1;min-width:0">โอนเงิน <b id="sh-amt"></b> บาท สแกน QR ได้เลย ยอดขึ้นให้เอง
+        <div class="pay">
+          <div class="qrwrap"><div class="qr" id="sh-qr"></div><button type="button" class="savebtn" id="sh-save">บันทึก QR ลงมือถือ</button><div class="qrhint" id="sh-qrhint">หรือกดค้างที่ QR แล้วเลือกบันทึกรูป</div></div>
+          <div class="acct">
+            <div class="sub">พร้อมเพย์</div><div class="num">086-678-6170 <button type="button" class="cp" data-copy="0866786170">คัดลอก</button></div>
+            <div class="sub">ธนาคารกสิกรไทย</div><div class="num">075-1-19354-8 <button type="button" class="cp" data-copy="0751193548">คัดลอก</button></div>
+            <div class="sub">ชื่อบัญชี นายไตรเทพ ขวัญเมือง</div>
+          </div>
+        </div></div></li>
+      <li><span>กดปุ่มด้านล่าง ฟอร์มจะเติมรายการ ยอดเงิน และรหัสออเดอร์ไว้ให้แล้ว กรอกชื่อ ที่อยู่ และเวลาที่โอนต่อได้เลย</span></li>
+    </ol>
+    <a class="formbtn" id="sh-form" href="#" target="_blank" rel="noopener">ไปกรอกฟอร์มยืนยันการสั่ง</a>
+    <button class="ghost" id="sh-close" type="button">กลับไปเลือกของต่อ</button>
+    <p class="note">จดรหัสออเดอร์ไว้ได้ เผื่อทักเพจถามสถานะ หลังส่งฟอร์มแล้ว เช็กออเดอร์ด้วยเบอร์โทรได้ที่ <a href="/check/" target="_blank" rel="noopener" style="color:var(--yellow)">หน้าเช็กออเดอร์</a> (อัปเดตทุกเช้า) ถ้ากดปุ่มแล้วฟอร์มไม่เปิด ลองกดค้างแล้วเลือกเปิดในเบราว์เซอร์</p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+const PP="0866786170";
+function crc16(s){let c=0xFFFF;for(const ch of s){c^=ch.charCodeAt(0)<<8;for(let i=0;i<8;i++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
+const tlv=(id,v)=>id+String(v.length).padStart(2,"0")+v;
+function ppPayload(phone,amt){const p="0066"+phone.replace(/\D/g,"").replace(/^0/,"");const s=tlv("00","01")+tlv("01","12")+tlv("29",tlv("00","A000000677010111")+tlv("01",p))+tlv("53","764")+tlv("54",amt.toFixed(2))+tlv("58","TH")+"6304";return s+crc16(s)}
+let qrCard=null;
+function drawQR(amt){const el=document.getElementById("sh-qr"),wrap=el.parentElement;
+  try{const q=qrcode(0,"M");q.addData(ppPayload(PP,amt));q.make();
+    el.innerHTML=`<img alt="QR พร้อมเพย์ ยอด ${baht(amt)} บาท" src="${q.createDataURL(8,2)}">`;wrap.hidden=false;
+    qrCard={q,amt};
+  }catch(e){wrap.hidden=true;qrCard=null}}
+async function cardBlob(){try{await document.fonts.ready}catch(_){}return new Promise(res=>{
+  const {q,amt}=qrCard,n=q.getModuleCount(),cell=10,qs=n*cell,W=qs+120,H=qs+300,c=document.createElement("canvas");c.width=W;c.height=H;
+  const x=c.getContext("2d");x.fillStyle="#ffffff";x.fillRect(0,0,W,H);x.fillStyle="#140726";x.fillRect(0,0,W,84);
+  x.fillStyle="#ffd23f";x.textAlign="center";x.font="600 26px Mitr, sans-serif";x.fillText("ร้านอาแปะหน้าปากซอย",W/2,40);
+  x.fillStyle="#ffffff";x.font="18px 'IBM Plex Sans Thai', sans-serif";x.fillText("สแกนจ่ายด้วยพร้อมเพย์",W/2,68);
+  x.fillStyle="#000";const ox=60,oy=110;for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))x.fillRect(ox+k*cell,oy+r*cell,cell,cell);
+  x.fillStyle="#f02585";x.font="600 40px Mitr, sans-serif";x.fillText(baht(amt)+" บาท",W/2,oy+qs+60);
+  x.fillStyle="#333";x.font="20px 'IBM Plex Sans Thai', sans-serif";x.fillText("พร้อมเพย์ 086-678-6170 · นายไตรเทพ ขวัญเมือง",W/2,oy+qs+100);
+  x.fillText("รหัสออเดอร์ "+(code||""),W/2,oy+qs+132);
+  c.toBlob(b=>res(b),"image/png")})}
+document.getElementById("sh-save").addEventListener("click",async e=>{
+  if(!qrCard)return;const btn=e.currentTarget,name=`QR-ร้านอาแปะ-${code||"order"}.png`;
+  try{const b=await cardBlob(),f=new File([b],name,{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"QR โอนเงิน ร้านอาแปะ"});btn.textContent="เลือก \"บันทึกรูปภาพ\" ได้เลย";return}
+    const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();a.remove();btn.textContent="บันทึกแล้ว ✓"}
+  catch(err){if(err&&err.name==="AbortError")return;document.getElementById("sh-qrhint").textContent="บันทึกอัตโนมัติไม่ได้ในแอปนี้ กดค้างที่ QR แล้วเลือกบันทึกรูปแทนนะ"}
+});
+const FORM="https://docs.google.com/forms/d/1CqPc_2CHQOsCy369-_Z16tVoal-_EYsvFFjgPyDhrdA/viewform";
+const E={code:"360839",items:"2048326403",amt:"200477565"};
+const IMG=s=>"/preorder/"+s+".jpg";
+const SECS=[
+ {k:"ongoing",h:"เรื่องที่ยังไม่จบ",sm:"ตามอ่านต่อได้ เล่มใหม่กำลังมา"},
+ {k:"manga",h:"มังงะ"},{k:"novel",h:"นิยาย"},{k:"art",h:"อาร์ตบุ๊ก"},{k:"goods",h:"Goods"}];
+const SERIES=[
+ {n:"แด่เจ้าหญิงผู้ร่วงหล่น",t:"novel",sec:"ongoing",img:"img2/fall",cov:["fall1","fall2","fall3","fall4"],cr:"เรื่อง Lilith",ids:[["BK-FALL1","เล่ม 1",250],["BK-FALL2","เล่ม 2",250],["BK-FALL3","เล่ม 3",250],["BK-FALL4","เล่ม 4",250]]},
+ {n:"Song",t:"manga",sec:"ongoing",img:"img2/song",cr:"โดย Butter-T",ids:[["BK-SONG1","เล่ม 1",250],["BK-SONG2","เล่ม 2",250],["BK-SONG3","เล่ม 3",250]]},
+ {n:"Pink Therapy",sub:"ไม่เกี่ยวกับเกมเพลย์หรอกนะ แต่ว่า...",t:"manga",img:"img/pink",cr:"เรื่อง/ภาพ Butter-T",ids:[["BK-PINK","",250]]},
+ {n:"บอสลิงยอดนักขาย",t:"manga",img:"img/boss",cr:"โดย Butter-T",ids:[["BK-BOSS","",250]]},
+ {n:"Cosplay Complex Live",t:"manga",img:"img/ccl",cr:"เรื่อง Lilith · ภาพ 9LiKiN@DyedFlowers, Nera Studio",ids:[["BK-CCL","",250]]},
+ {n:"Girl Hunter's Diary",t:"manga",img:"img/ghd",cr:"เรื่อง/ภาพ Nera Studio",ids:[["BK-GHD","",300]]},
+ {n:"Mindbreak",sub:"Manga x Novel",t:"manga",img:"img2/mb",ids:[["BK-MB","",250]]},
+ {n:"หมูน้อยขายบ๊ะจ่าง",t:"manga",img:"img2/bajang",cr:"โดย Butter-T",ids:[["BK-BAJANG","",250]]},
+ {n:"ม่านที่ไม่เคยเปิด",t:"novel",img:"img/man",cr:"เรื่อง Lilith · ภาพ XTER",ids:[["BK-MAN","",300]]},
+ {n:"ผมถูกสาวแกลเห็นตอนแสนหนาว",t:"novel",img:"img/gal",cr:"เรื่อง Lilith · ภาพ Butter-T",ids:[["BK-GAL","",250]]},
+ {n:"มีแฟนสาวชอบโชว์แบบนี้ตื่นเต้นดีไหมคะ",t:"novel",img:"img/show",cr:"เรื่อง Lilith · ภาพ Butter-T",ids:[["BK-SHOW","",250]]},
+ {n:"NTR Therapy",t:"novel",img:"img/ntr",cr:"เรื่อง Lilith · ภาพ 9LiKiN@DyedFlowers",ids:[["BK-NTRT","",250]]},
+ {n:"No More Sorrow",t:"novel",img:"img2/nms",cov:["nms1","nms2","nms3","nms4","nms5"],cr:"เรื่อง Lilith · ภาพ Gergoth",ids:[["BK-NMS1","เล่ม 1",300],["BK-NMS2","เล่ม 2",300],["BK-NMS3","เล่ม 3",300],["BK-NMS4","เล่ม 4",300],["BK-NMS5","เล่ม 5",300]]},
+ {n:"No Sex, No Life",sub:"6 เล่มจบ",t:"novel",img:"img2/nsnl",cr:"เรื่อง Lilith · ภาพ Gergoth",ids:[["BK-NSNL1","เล่ม 1",280],["BK-NSNL2","เล่ม 2",280],["BK-NSNL3","เล่ม 3",280],["BK-NSNL4","เล่ม 4",280],["BK-NSNL5","เล่ม 5",280],["BK-NSNL6","เล่ม 6",280]]},
+ {n:"Hysteria",sub:"5 เล่มจบ",t:"novel",img:"img2/hys",cov:["hys1","hys2","hys3","hys4"],ids:[["BK-HYS1","เล่ม 1",250],["BK-HYS2","เล่ม 2",250],["BK-HYS3","เล่ม 3",250],["BK-HYS4","เล่ม 4",250],["BK-HYS5","เล่ม 5",250]]},
+ {n:"With 7 Sins",t:"novel",cov:["w7s1","w7s3","w7s4","w7s5","w7s6"],ids:[["BK-W7S1","เล่ม 1",230],["BK-W7S3","เล่ม 3",230],["BK-W7S4","เล่ม 4",230],["BK-W7S5","เล่ม 5",230],["BK-W7S6","เล่ม 6",230],["BK-W7S7","เล่ม 7",230]]},
+ {n:"Honor and Passion",sub:"2 เล่มจบ",t:"novel",img:"img2/hp",cr:"เรื่อง Lilith · ภาพ Gergoth",ids:[["BK-HP1","เล่ม 1",250],["BK-HP2","เล่ม 2",250]]},
+ {n:"Cosplay Complex",sub:"ฉบับนิยาย",t:"novel",img:"img2/cc",cr:"เรื่อง Lilith · ภาพ 9LiKiN@DyedFlowers",ids:[["BK-CC","",250]]},
+ {n:"Elsia The Princess Elf",sub:"เล่มเดียวจบ",t:"novel",img:"img2/elf",cr:"เรื่อง Lilith · ภาพ Gergoth",ids:[["BK-ELF","",150]]},
+ {n:"คู่มือแต่งนิยาย",sub:"ต่อให้ไม่ได้อยากเขียนนิยายก็อ่านสนุก",t:"novel",img:"img/guide",ids:[["BK-GUIDE","",250]]},
+ {n:"V-Playboy",sub:"อาร์ตบุ๊ก 4 สี 48 หน้า",t:"art",img:"img2/vpb",cov:["vpb1","vpb2"],cr:"ภาพ Butter-T",ids:[["BK-VPB1","เล่ม 1",500],["BK-VPB2","เล่ม 2",500]]},
+ {n:"V-Fashion",sub:"ชุดว่ายน้ำ ภาพสีทั้งเล่ม 36 หน้า",t:"art",img:"img2/vf",cr:"ภาพ Butter-T",ids:[["BK-VF","",400]]},
+ {n:"ชิกิชิ 2026",t:"goods",ids:[["GD-SKS26","",200]]},
+ {n:"แผ่นรองเมาส์ Nanahoshi",t:"goods",ids:[["GD-MP-NANA","",500]]},
+ {n:"แผ่นรองเมาส์ Aicha",t:"goods",ids:[["GD-MP-AICHA","",500]]}
+];
+const TNAME={manga:"มังงะ",novel:"นิยาย",art:"อาร์ตบุ๊ก",goods:"Goods"};
+const BY={};for(const s of SERIES)for(const [id,v,p] of s.ids)BY[id]={id,p,t:s.t,n:s.n+(v?" "+v:"")};
+const cart={};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const baht=n=>n.toLocaleString("th-TH");
+const ship=n=>n<=0?0:n>=4?90:[0,50,70,80][n];
+function calc(){const lines=Object.entries(cart).filter(([,q])=>q>0).map(([id,q])=>({...BY[id],q}));const n=lines.reduce((a,l)=>a+l.q,0),sub=lines.reduce((a,l)=>a+l.p*l.q,0),sh=ship(n);return{lines,n,count:n,sub,sh,total:sub+sh}}
+function stepper(id){const q=cart[id]||0;return q?`<div class="step"><button type="button" data-d="-1" data-id="${id}" aria-label="ลด">−</button><output>${q}</output><button type="button" data-d="1" data-id="${id}" aria-label="เพิ่ม">+</button></div>`:`<button type="button" class="add" data-d="1" data-id="${id}">ใส่ตะกร้า</button>`}
+const TOP={};
+function stack(s){const k=SERIES.indexOf(s),n=s.cov.length,t=(TOP[k]||0)%n;
+  const imgs=s.cov.map((c,i)=>{const d=(i-t+n)%n;return `<img src="${IMG("vol/"+c)}" alt="ปก ${esc(s.n)} ${i+1}" loading="lazy" style="z-index:${n-d};transform:translate(${Math.min(d,3)*5}%,${Math.min(d,3)*-2}%) scale(${1-Math.min(d,3)*0.06});opacity:${d>3?0:1}">`}).join("");
+  return `<div class="stack" data-k="${k}" role="group" aria-label="ปก ${esc(s.n)} ปัดเพื่อดูเล่มอื่น">${imgs}<button type="button" class="sv prev" data-sv="-1" data-k="${k}" aria-label="ปกก่อนหน้า">‹</button><button type="button" class="sv next" data-sv="1" data-k="${k}" aria-label="ปกถัดไป">›</button><div class="dots">${s.cov.map((_,i)=>`<i${i===t?' class="on"':""}></i>`).join("")}</div></div>`}
+function flip(k,d){const n=SERIES[k].cov.length;TOP[k]=((TOP[k]||0)+d+n)%n;const el=document.querySelector(`.stack[data-k="${k}"]`);if(el)el.outerHTML=stack(SERIES[k])}
+function scard(s){const ps=s.ids.map(x=>x[2]),pmin=Math.min(...ps),pmax=Math.max(...ps),multi=s.ids.length>1;
+  return `<div class="scard t-${s.t}${s.ids.some(x=>cart[x[0]])?" in":""}"><div class="band"><span>${TNAME[s.t]}</span><span>${multi?s.ids.length+" เล่ม":""}</span></div>
+  ${s.cov&&s.cov.length>1?stack(s):`<div class="scover${s.img?"":" noimg"}">${s.img?`<img src="${IMG(s.img)}" alt="ปก ${esc(s.n)}" loading="lazy">`:`<span>${esc(s.n)}</span>`}</div>`}
+  <div class="pbody"><div class="name">${esc(s.n)}</div>${s.sub?`<div class="sub">${esc(s.sub)}</div>`:""}${s.cr?`<div class="sub">${esc(s.cr)}</div>`:""}<div class="sub">${pmin===pmax?`${baht(pmin)} บาท${multi?" / เล่ม":""}`:`${baht(pmin)}–${baht(pmax)} บาท`}</div>
+  <div class="vols">${s.ids.map(([id,v])=>`<div class="vol"><span>${esc(v||"1 เล่ม")}</span>${stepper(id)}</div>`).join("")}</div></div></div>`}
+function render(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const sl=SERIES.filter(s=>!q||s.n.toLowerCase().includes(q));
+  document.getElementById("secs").innerHTML=SECS.map(sec=>{const l=sl.filter(s=>(s.sec||s.t)===sec.k);return l.length?`<h2>${sec.h}${sec.sm?` <small>${sec.sm}</small>`:""}</h2><div class="sgrid">${l.map(scard).join("")}</div>`:""}).join("")||`<div class="empty">ไม่เจอเรื่องนี้ ลองพิมพ์คำอื่น</div>`;
+  const c=calc(),bt=document.getElementById("bar-total"),bh=document.getElementById("bar-hint");
+  if(!c.count){bt.textContent="ยังไม่มีของในตะกร้า";bh.textContent="ค่าส่งสูงสุด 90 บาท ไม่ว่าจะกี่ชิ้น";bh.className="bar-hint"}
+  else{bt.textContent=`${c.count} ชิ้น · ${baht(c.total)} บาท`;
+    if(c.n>=4){bh.textContent="รวมค่าส่ง 90 บาท · เพิ่มของได้อีก ค่าส่งไม่เพิ่มแล้ว";bh.className="bar-hint good"}
+    else{bh.textContent=`รวมค่าส่ง ${c.sh} บาท (${c.n} ชิ้น)`;bh.className="bar-hint"}}
+  document.getElementById("checkout").disabled=!c.count;
+  const b=document.getElementById("cta-buy");b.disabled=!c.count;b.textContent=c.count?`ซื้อเท่านี้แหละ · ${baht(c.total)} บาท`:"ซื้อเท่านี้แหละ";
+}
+document.getElementById("cta-buy").addEventListener("click",()=>openSheet());
+document.addEventListener("click",e=>{const sv=e.target.closest("[data-sv]");if(sv){flip(+sv.dataset.k,+sv.dataset.sv);return}const cp=e.target.closest("[data-copy]");if(cp){const t=cp.dataset.copy;const done=()=>{cp.textContent="คัดลอกแล้ว";setTimeout(()=>cp.textContent="คัดลอก",1500)};try{navigator.clipboard.writeText(t).then(done,()=>{cp.textContent=t})}catch(_){cp.textContent=t}return}
+  const b=e.target.closest("[data-d]");if(!b)return;const id=b.dataset.id;cart[id]=Math.max(0,(cart[id]||0)+Number(b.dataset.d));if(!cart[id])delete cart[id];code=null;render();
+  const again=document.querySelector(`[data-id="${CSS.escape(id)}"][data-d="${b.dataset.d}"]`)||document.querySelector(`[data-id="${CSS.escape(id)}"]`);if(again)again.focus()});
+document.getElementById("q").addEventListener("input",render);
+let sx=null,sk=null;
+document.addEventListener("pointerdown",e=>{const st=e.target.closest(".stack");if(!st||e.target.closest("button"))return;sx=e.clientX;sk=+st.dataset.k});
+document.addEventListener("pointerup",e=>{if(sx==null)return;const dx=e.clientX-sx;if(Math.abs(dx)>30)flip(sk,dx<0?1:-1);sx=null});
+document.addEventListener("pointercancel",()=>{sx=null});
+
+let code=null;
+function newCode(){const A="ABCDEFGHJKMNPQRSTUVWXYZ23456789",d=new Date(),r=crypto.getRandomValues(new Uint8Array(4));return "OR"+String(d.getDate()).padStart(2,"0")+String(d.getMonth()+1).padStart(2,"0")+"-"+[...r].map(x=>A[x%A.length]).join("")}
+function openSheet(){
+  const c=calc(); if(!c.count)return; code=code||newCode();
+  document.getElementById("sh-code").textContent=code;
+  document.getElementById("sh-amt").textContent=baht(c.total); drawQR(c.total); document.getElementById("sh-save").textContent="บันทึก QR ลงมือถือ";
+  document.getElementById("sh-table").innerHTML=c.lines.map(l=>`<tr><td>${esc(l.n)} × ${l.q}</td><td>${baht(l.p*l.q)}</td></tr>`).join("")+
+    `<tr><td>ค่าส่ง (${c.n} ชิ้น)</td><td>${baht(c.sh)}</td></tr><tr class="sum"><td>ยอดโอน</td><td>${baht(c.total)} บาท</td></tr>`;
+  const itemsTxt=c.lines.map(l=>`${l.n} x${l.q} (${l.p*l.q})`).join(", ")+` | ค่าส่ง ${c.sh}`;
+  const u=new URLSearchParams({usp:"pp_url"}); u.set("entry."+E.code,code); u.set("entry."+E.items,itemsTxt); u.set("entry."+E.amt,String(c.total));
+  document.getElementById("sh-form").href=FORM+"?"+u.toString();
+  document.getElementById("sheet").hidden=false; document.getElementById("sh-close").focus();
+}
+document.getElementById("checkout").addEventListener("click",openSheet);
+document.getElementById("sh-close").addEventListener("click",()=>{document.getElementById("sheet").hidden=true;document.getElementById("checkout").focus()});
+document.getElementById("sheet").addEventListener("click",e=>{if(e.target.id==="sheet")e.target.hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("sheet").hidden=true});
+
+let ok=false;try{ok=localStorage.getItem("r8-age")==="1"}catch(e){}
+if(ok)document.getElementById("gate").hidden=true;
+document.getElementById("gate-ok").addEventListener("click",()=>{document.getElementById("gate").hidden=true;try{localStorage.setItem("r8-age","1")}catch(e){}});
+render();
+</script>
+
+</body>
+</html>
