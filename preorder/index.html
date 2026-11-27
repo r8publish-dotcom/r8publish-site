@@ -313,7 +313,7 @@ const SERIES=[
   {n:"หมูน้อยขายบ๊ะจ่าง",t:"manga",img:"bajang",ids:["BK-BAJANG"]},
   {n:"Stray Cat",sub:"เล่มเดียวจบ",t:"manga",img:"stray",ids:["BK-STRAY"]},
   {n:"My Girl's Friend",t:"manga",img:"mgf",ids:["BK-MGF"]},
-  {n:"V-Fashion",sub:"อาร์ตบุ๊กชุดว่ายน้ำ",t:"art",img:"vf",ids:["BK-VF"]},
+  {n:"V-Fashion",sub:"อาร์ตบุ๊กชุดว่ายน้ำ ภาพสีทั้งเล่ม 36 หน้า · ภาพ Butter-T",t:"art",img:"vf",ids:["BK-VF"]},
   {n:"ชิกิชิ 2026",t:"art",ids:["BK-SKS26"]},
   {n:"ลุงโลลิ",t:"novel",img:"loli",ids:["BK-LOLI1","BK-LOLI2"]},
   {n:"LostLight อัญมณีสิ้นแสง",t:"novel",img:"ll",ids:["BK-LL1","BK-LL2","BK-LL3"]},
@@ -325,7 +325,7 @@ const SERIES=[
   {n:"Honor and Passion",sub:"2 เล่มจบ · เรื่อง Lilith · ภาพ Gergoth",t:"novel",img:"hp",ids:["BK-HP1","BK-HP2"]},
   {n:"Cosplay Complex",sub:"ฉบับนิยาย · เรื่อง Lilith · ภาพ 9LiKiN@DyedFlowers",t:"novel",img:"cc",ids:["BK-CC"]},
   {n:"Elsia The Princess Elf",sub:"เล่มเดียวจบ · เรื่อง Lilith · ภาพ Gergoth",t:"novel",img:"elf",ids:["BK-ELF"]},
-  {n:"Wish of the Star",t:"novel",ids:["BK-WISH"]}
+  {n:"Wish of the Star",sub:"ความปรารถนาจากดวงดาว · Blue Archive fanbook · IvrY",t:"manga",img:"wish",ids:["BK-WISH"]}
 ];
 {const inS=new Set(SERIES.flatMap(s=>s.ids));for(const b of BOOKS2)if(!inS.has(b.id))SERIES.push({n:b.n,t:b.t,ids:[b.id]})}
 const volName=(s,id)=>{const n=(BY[id]||{}).n||id;if(s.ids.length===1)return "1 เล่ม";const m=n.match(/เล่ม\s*\d+.*$/);return m?m[0]:"เล่ม "+(s.ids.indexOf(id)+1)};
