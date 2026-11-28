@@ -230,7 +230,6 @@ tr.sum td{border-bottom:none;font-family:var(--display);font-size:20px;padding-t
         <div class="pay">
           <div class="qrwrap"><div class="qr" id="sh-qr"></div><button type="button" class="savebtn" id="sh-save">บันทึก QR ลงมือถือ</button><div class="qrhint" id="sh-qrhint">หรือกดค้างที่ QR แล้วเลือกบันทึกรูป</div></div>
           <div class="acct">
-            <div class="sub">พร้อมเพย์</div><div class="num">086-678-6170 <button type="button" class="cp" data-copy="0866786170">คัดลอก</button></div>
             <div class="sub">ธนาคารกสิกรไทย</div><div class="num">075-1-19354-8 <button type="button" class="cp" data-copy="0751193548">คัดลอก</button></div>
             <div class="sub">ชื่อบัญชี นายไตรเทพ ขวัญเมือง</div>
           </div>
@@ -245,10 +244,10 @@ tr.sum td{border-bottom:none;font-family:var(--display);font-size:20px;padding-t
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
-const PP="0866786170";
+const PP="004999089335680";
 function crc16(s){let c=0xFFFF;for(const ch of s){c^=ch.charCodeAt(0)<<8;for(let i=0;i<8;i++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
 const tlv=(id,v)=>id+String(v.length).padStart(2,"0")+v;
-function ppPayload(phone,amt){const p="0066"+phone.replace(/\D/g,"").replace(/^0/,"");const s=tlv("00","01")+tlv("01","12")+tlv("29",tlv("00","A000000677010111")+tlv("01",p))+tlv("53","764")+tlv("54",amt.toFixed(2))+tlv("58","TH")+"6304";return s+crc16(s)}
+function ppPayload(phone,amt){const p=phone;const s=tlv("00","01")+tlv("01","12")+tlv("29",tlv("00","A000000677010111")+tlv("03",p))+tlv("53","764")+tlv("54",amt.toFixed(2))+tlv("58","TH")+"6304";return s+crc16(s)}
 let qrCard=null;
 function drawQR(amt){const el=document.getElementById("sh-qr"),wrap=el.parentElement;
   try{const q=qrcode(0,"M");q.addData(ppPayload(PP,amt));q.make();
